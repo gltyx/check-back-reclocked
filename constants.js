@@ -1,4 +1,4 @@
-const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 18, 25, 35, 50, 65, 80, 100, 1000000000]
+const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 1000000000] //This will probably be remade completely
 const unlockLevelsBig = [12, 15, 18, 21, 24, 27, 30, 100, 1000000000]
 const permanentUnlockLevels = [50, 100000000]
 const permanentUnlocks = [10, 100000]
@@ -35,7 +35,7 @@ const levelBarColours = [
     [Infinity, "#666"],
 ]
 
-const ranks = [
+const ranks = [ //This will probably be remade for there to be less names but more "number like" scaling with potential even exponential step-to-step
     [1, "Beginner", 1],
     [2, "Basic", 1],
     [3, "Unremarkable", 1],
@@ -91,24 +91,24 @@ const ranks = [
 const pets = [
     //Name, XP multiplier, Funny special text.
     { name: "Test", xpMulti: 1, specialText: "Hey, how did you find me? (Placeholder)" }, //0
-    { name: "Slug", xpMulti: 1.1, specialText: "A snail that lost its shell and has to live underneath a bridge... for now.<br>(Most textures like this have been taken from a project called Dungeon Crawl, check it out)" }, // 1
-    { name: "Rat", xpMulti: 1.2, specialText: "A rat forced to eat trash to survive. It'd love to eat a fresh lug anyday." }, // 2
-    { name: "Snake", xpMulti: 1.3, specialText: "A snake living in barren wastes, looking for any juicy rat to eat." }, // 3
-    { name: "Small Elf", xpMulti: 1.5, specialText: "This breed of elves is so small that they cannot harvest anything bigger than a mushroom. They love to dine on snakes." }, // 4
-    { name: "Green Butterfly", xpMulti: 1.25, specialText: "Green butterflies are known to be annoying when crossing forests." }, // 5
-    { name: "Green Lizard", xpMulti: 1.4, specialText: "Rapid bug that cammouflages through green environments." }, // 6
-    { name: "Green Salamander", xpMulti: 1.6, specialText: "Their only danger comes from accidentally touching them." }, // 7
-    { name: "Green Spider", xpMulti: 1.8, specialText: "They live on leaves because they can't make cobwebs." }, // 8
-    { name: "Green Crocodile", xpMulti: 2.1, specialText: "It has a little button that makes it say 'See ya later, alligator'." }, // 9
-    { name: "Green Dragon", xpMulti: 2.5, specialText: "Myths say that this dragon is a symbol of luck. Do they drink liquid luck?" }, // 10
-    { name: "Turtle", xpMulti: 2, specialText: "Not the fastest sheriff of the wild west." }, //11
-    { name: "Tarantula", xpMulti: 2.2, specialText: "An australian nightmare if it weren't for their big green eyes." }, //12
-    { name: "1-Headed Snake", xpMulti: 2.4, specialText: "Where are the other heads? They were lost in a crazy blackjack night. Maybe this snake will restore them eventually." }, //13
-    { name: "Purple Butterfly", xpMulti: 2.7, specialText: "Do I know the green butterfly? I'd rather not know her." }, //14
-    { name: "Earth Snake", xpMulti: 3, specialText: "Unlike other snakes, this one saw the Avatar training, and learned a thing or two about earth bending." }, //15
-    { name: "Scorpion", xpMulti: 3.5, specialText: "People used to call me the 'Death Scorpion' but I prefer being a farmer, so I dropped the name." }, //16
-    { name: "Cat", xpMulti: 4, specialText: "Maybe the fastest sheriff of the wild west, if the cat were to behave correctly." }, //17
-    { name: "Earth Dragon", xpMulti: 5, specialText: "The father of the Earth, this dragon can make life out of sticks and stones." }, //18
+    { name: "Slug", xpMulti: 1.2, specialText: "A snail that lost its shell and has to live underneath a bridge... for now.<br>(Most textures like this have been taken from a project called Dungeon Crawl, check it out)" }, // 1
+    { name: "Rat", xpMulti: 1.4, specialText: "A rat forced to eat trash to survive. It'd love to eat a fresh lug anyday." }, // 2
+    { name: "Snake", xpMulti: 1.6, specialText: "A snake living in barren wastes, looking for any juicy rat to eat." }, // 3
+    { name: "Small Elf", xpMulti: 2, specialText: "This breed of elves is so small that they cannot harvest anything bigger than a mushroom. They love to dine on snakes." }, // 4
+    { name: "Green Butterfly", xpMulti: 1.5, specialText: "Green butterflies are known to be annoying when crossing forests." }, // 5
+    { name: "Green Lizard", xpMulti: 1.75, specialText: "Rapid bug that cammouflages through green environments." }, // 6
+    { name: "Green Salamander", xpMulti: 2.25, specialText: "Their only danger comes from accidentally touching them." }, // 7
+    { name: "Green Spider", xpMulti: 2.75, specialText: "They live on leaves because they can't make cobwebs." }, // 8
+    { name: "Green Crocodile", xpMulti: 3.5, specialText: "It has a little button that makes it say 'See ya later, alligator'." }, // 9
+    { name: "Green Dragon", xpMulti: 5, specialText: "Myths say that this dragon is a symbol of luck. Do they drink liquid luck?" }, // 10
+    { name: "Turtle", xpMulti: 3, specialText: "Not the fastest sheriff of the wild west." }, //11
+    { name: "Tarantula", xpMulti: 4, specialText: "An australian nightmare if it weren't for their big green eyes." }, //12
+    { name: "1-Headed Snake", xpMulti: 5.2, xpCooldown: 1.01, specialText: "Where are the other heads? They were lost in a crazy blackjack night. Maybe this snake will restore them eventually." }, //13
+    { name: "Purple Butterfly", xpMulti: 6.5, xpCooldown: 1.02, specialText: "Do I know the green butterfly? I'd rather not know her." }, //14
+    { name: "Earth Snake", xpMulti: 8, xpCooldown: 1.03, specialText: "Unlike other snakes, this one saw the Avatar training, and learned a thing or two about earth bending." }, //15
+    { name: "Scorpion", xpMulti: 10, xpCooldown: 1.05, specialText: "People used to call me the 'Death Scorpion' but I prefer being a farmer, so I dropped the name." }, //16
+    { name: "Cat", xpMulti: 12, xpCooldown: 1.07, specialText: "Maybe the fastest sheriff of the wild west, if the cat were to behave correctly." }, //17
+    { name: "Earth Dragon", xpMulti: 15, xpCooldown: 1.1, specialText: "The father of the Earth, this dragon can make life out of sticks and stones." }, //18
 ]
 
 const basicUnboxChances = [

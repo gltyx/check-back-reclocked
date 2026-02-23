@@ -44,32 +44,43 @@ function showStatInfo(x) {
     if (x == 0) { document.getElementById("statsInfo").innerHTML = "Hello World" }
     if (x == 1) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Player stats</span><br><br>" + playerStats() }
     if (x == 2) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>XP Stats</span><br><br>" + xpStats() }
+    if (x == 3) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Pet Stats</span><br><br>" + petStats() }
 }
 
 function playerStats() {
     let result = ""
-    result += "Highest level: " + wholeNumberShort(game.player.highestLevel) + "<br>"
-    result += "Unlocks: " + wholeNumberShort(game.player.unlocks) + " / " + wholeNumberShort(unlockLevels.length) + "<br>"
+    let totalUnlocks = unlockLevelsSmall.length + unlockLevelsBig.length
+    result += "Highest level: " + displayBig(game.player.highestLevel) + "<br>"
+    result += "Unlocks: " + wholeNumberShort(game.player.unlocks) + " / " + wholeNumberShort(totalUnlocks) + "<br>"
     result += "Time played: " + numberToTime(game.player.timePlayed) + "<br>"
     result += "Button clicks: " + wholeNumberShort(game.player.buttonClicks) + "<br>"
-    if (game.player.highestLevel >= 8) {
+    if (compareBig(game.player.highestLevel, 8)) {
         result += "Crates opened: " + wholeNumberShort(game.player.cratesOpened) + "<br>"
-        result += "Pets owned: " + countPets() + " / " + wholeNumberShort(pets.length - 1) + "<br>"
+        result += "Pets owned: " + countPets(1, pets.length - 1) + " / " + wholeNumberShort(pets.length - 1) + "<br>"
     }
     return result
 }
 
 function xpStats() {
     let result = "XP Multipliers:<br>"
-    if (pets[game.pets.equipped].xpMulti > 1) { result += "x" + numberShort(pets[game.pets.equipped].xpMulti) + " from pets<br>" }
-    result += "TOTAL: x" + numberShort(game.xp.multiplier) + "<br><br>XP Cooldown modifiers:<br>"
+    if (pets[game.pets.equipped].xpMulti > 1) { result += "x" + displayBig(pets[game.pets.equipped].xpMulti) + " from pets<br>" }
+    result += "TOTAL: x" + displayBig(game.xp.multiplier) + "<br><br>XP Cooldown modifiers:<br>"
 
     result += "TOTAL: /" + numberShort(game.xp.cooldown)
     return result
 }
 
-function countPets() {
+function petStats() {
+    let result = "Collection completionist progress:<br>"
+    if (game.player.unlocks >= petButtons[0].unlock) {result += "Basic crate: " + wholeNumberShort(countPets(1, 4)) + "/4<br>"}
+    if (game.player.unlocks >= petButtons[1].unlock) {result += "Nature crate: " + wholeNumberShort(countPets(5, 10)) + "/6<br>"}
+    if (game.player.unlocks >= petButtons[2].unlock) {result += "Earth crate: " + wholeNumberShort(countPets(11, 18)) + "/8<br>"}
+    result += "TOTAL: " + wholeNumberShort(countPets(1, pets.length - 1)) + "/" + wholeNumberShort(pets.length - 1) + "<br><br>"
+    return result
+}
+
+function countPets(x, y) { //x = starting pet, y = final pet, both included: countPets(3, 6) = (3, 4, 5, 6)
     let count = 0
-    for (i = 1; i <= pets.length; i++) { if (game.pets.amount[i] > 0) { count++ } }
+    for (i = x; i <= y; i++) { if (game.pets.individualDiscovered[i] == 1) { count++ } }
     return count
 }

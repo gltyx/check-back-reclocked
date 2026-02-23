@@ -117,7 +117,8 @@ function displayBig(a) { //Basically will format an array a that represents a nu
     if (a.length == 2) {
         let expoExpo = Math.floor(Math.log10(a[1]))
         let expoMantissa = a[1] / (10 ** expoExpo)
-        if (a[1] < 12) { return numberShort(a[0] * 10 ** a[1]) }
+        if (a[1] <= -3) { return ("1/" + displayBig(divideBig([1, 0], a)))}
+        else if (a[1] < 12) { return numberShort(a[0] * 10 ** a[1]) }
         else if (a[1] < 10000) { return (a[0].toFixed(2) + "e" + wholeNumberShort(a[1])) }
         else if (a[1] < 10 ** 12) { return (Math.floor(a[0]) + "e" + wholeNumberShort(a[1])) }
         else return (Math.floor(a[0]) + "e" + expoMantissa.toFixed(1) + "e" + expoExpo.toFixed(0))

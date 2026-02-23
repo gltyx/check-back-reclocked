@@ -6,6 +6,7 @@
     2.2: Pet Crates
 */
 
+//This will mostly be removed soon and turned into some sort of "Dodecadragons" map-like grid
 const mainTabs = [ //Represents the names and unlocks for each main tab
     { name: "InventoryTab", unlock: 5 },
     { name: "MainTab", unlock: 5 },
@@ -18,6 +19,7 @@ const inventorySubTab = [ //Represents the names and unlocks for each subtab ins
 const mainSubTab = [ //Represents the names and unlocks for each subtab inside the "Main" content
     { name: "XPTab", unlock: 5 },
     { name: "CratesTab", unlock: 5 },
+    { name: "XPBTab", unlock: 12 },
 ]
 
 const otherFunniesDisplay = [
@@ -41,6 +43,13 @@ function displayTabContent() {
     for (i = 0; i < petButtons.length; i++) { //If the player has the unlock requirement for a crate button AND is inside the specific tab, the button will show, either it will hide
         if (game.player.unlocks >= petButtons[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 2])) { document.getElementById(petButtons[i].name).style.display = "block" }
         else { document.getElementById(petButtons[i].name).style.display = "none" }
+    }
+    for (i = 0; i < XPBoostButtons.length; i++) { //If the player has the unlock requirement for an xp boost button AND is inside the specific tab, the button will show, either it will hide
+        if (game.player.unlocks >= XPBoostButtons[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 3])) { document.getElementById(XPBoostButtons[i].name).style.display = "block" }
+        else { document.getElementById(XPBoostButtons[i].name).style.display = "none" }
+    }
+    if (JSON.stringify(game.player.currentTab) == JSON.stringify([2, 3])) {
+        document.getElementById("petRarities").innerHTML = XPBoostEffects()
     }
 }
 setInterval(displayTabContent, 50)
@@ -71,7 +80,7 @@ function displayMainButtons() {
 }
 setInterval(displayMainButtons, 50)
 
-function displayFunnies() {
+function displayFunnies() { //This is for stuff like selected pet text
     for (i = 0; i < otherFunniesDisplay.length; i++) {
         if (game.player.unlocks >= otherFunniesDisplay[i].unlock) { document.getElementById(otherFunniesDisplay[i].name).style.display = "block" }
         else { document.getElementById(otherFunniesDisplay[i].name).style.display = "none" }

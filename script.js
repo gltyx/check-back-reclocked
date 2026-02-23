@@ -15,10 +15,19 @@ function reset() {
             multiplier: 1, //Normal
             cooldown: 1, //Normal
             buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0], //List of normals
-            discovered: 0, //Normal
+            discoveredTotal: 0, //Normal
+            individualDiscovered: [0, 0, 0], //List of normals with many entries
             equipped: 0, //Normal
             unboxString: [[0, 0]], //List of lists of normals
             luck: 1, //Normal
+        },
+        xpBoost: {
+            amount: [1, 0], //Big
+            multiplier: [1, 0], //Big
+            cooldown: 1, //Normal
+            buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //List of normals
+            effectExpo: [1, 0], //Big, could work as normal
+            effectiveBoost: [1, 0],
         },
         player: {
             highestLevel: [1, 0], //Big
@@ -33,14 +42,19 @@ function reset() {
             timePlayed: 0, //Normal
             buttonClicks: 0, //Normal
             cratesOpened: 0, //Normal
+            online: false, //If this is false, whenever it updates cooldowns it won't count for playtime
         },
-        daily: {
+        daily: { //This might be entirely scrapped
             days: 1, //Normal
             rewardLength: 2, //Normal
             rewards: [0, 1, 1, 0], //List of normals
             rewardCap: [0, 1, 1, 0], //List of normals
             dailyXP: [1, 0], //Big
             crateLuck: 1, //Normal
+        },
+        mining: { //This is a test
+            gridSize: 10,
+            grid: [0],
         },
     }
 }
@@ -62,7 +76,7 @@ function save() {
 }
 
 function setAutoSave() {
-    setInterval(save, 30000);
+    setInterval(save, 5000);
     autosaveStarted = true;
 }
 //setInterval(save, 5000)
@@ -121,7 +135,11 @@ function loadGame(loadgame) {
         window.alert(`Save Data Issues!\n${err}`); //whatever you want to say here
     }
     //Updates arrays of things like pets so that any new existing slot is 0 instead of undefined [where undefined + 1 = NaN]
-    for (i = 0; i <= pets.length; i++) { if (!game.pets.amount[i]) { game.pets.amount[i] = 0 } }
+    for (i = 0; i < pets.length; i++) {
+        if (!game.pets.amount[i]) { game.pets.amount[i] = 0 }
+        if (!game.pets.individualDiscovered[i]) { game.pets.individualDiscovered[i] = 0 } 
+        if (game.pets.amount[i] >= 1 && game.pets.individualDiscovered[i] == 0) { game.pets.individualDiscovered[i] = 1}
+    }
 }
 
 function updateSmall() { //This part checks if buttons are available or not, adds the flickering for tabs (to show a button is ready to use) and does a lot of number updates
@@ -153,6 +171,16 @@ function updateSmall() { //This part checks if buttons are available or not, add
         else {
             document.getElementById(petButtons[i].name).disabled = false
             document.getElementById(petButtons[i].name).innerHTML = "Unbox a random " + petButtons[i].crateName + " pet"
+        }
+    }
+    for (let i = 0; i < XPBoostButtons.length; i++) { //Displays whenever a button is ready to be clicked for x xpboost or whenever you have to wait y time to click it again
+        if (game.xpBoost.buttonCooldowns[i] > 0) {
+            document.getElementById(XPBoostButtons[i].name).disabled = true
+            document.getElementById(XPBoostButtons[i].name).innerHTML = "Check back in " + numberToTime(game.xpBoost.buttonCooldowns[i])
+        }
+        else {
+            document.getElementById(XPBoostButtons[i].name).disabled = false
+            document.getElementById(XPBoostButtons[i].name).innerHTML = "Gain " + displayBig(calculateXPBGain(i)) + " XPBoost"
         }
     }
     if (compareBig(game.xp.amount, levelToXP(game.xp.levelCap))) { game.xp.amount = levelToXP(game.xp.levelCap) } //If the xp you have is higher than whatever xp is needed for cap, then your xp gets set to the corresponding xp to the cap
@@ -209,6 +237,8 @@ function updateSmall() { //This part checks if buttons are available or not, add
 }
 setInterval(updateSmall, 50)
 
+game.player.online = false
+
 function updateLarge() {
 
     for (let i = 0; i < XPButtons.length; i++) { //Updates every xp cooldown based on the difference between current time and last time they have been updated. NOTE: This has to be copied for every set of button cooldowns
@@ -216,13 +246,22 @@ function updateLarge() {
         if (game.xp.buttonCooldowns[i] < 0) game.xp.buttonCooldowns[i] = 0
         if (!game.xp.buttonCooldowns[i]) game.xp.buttonCooldowns[i] = 0
     }
-    for (let i = 0; i < petButtons.length; i++) { //Updates every xp cooldown based on the difference between current time and last time they have been updated. NOTE: This has to be copied for every set of button cooldowns
+    for (let i = 0; i < petButtons.length; i++) { //Updates every pet cooldown based on the difference between current time and last time they have been updated.
         if (game.pets.buttonCooldowns[i] > 0) game.pets.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))
         if (game.pets.buttonCooldowns[i] < 0) game.pets.buttonCooldowns[i] = 0
         if (!game.pets.buttonCooldowns[i]) game.pets.buttonCooldowns[i] = 0
     }
-
-    if (Date.now() - game.player.timeOfLastUpdate <= 200) { game.player.timePlayed += (Date.now() - game.player.timeOfLastUpdate) / 1000 } //If the time since the last update is less than 200ms (50ms update + 150ms lag leeway), it assumes you're online and updates playtime accordingly
+    for (let i = 0; i < XPBoostButtons.length; i++) { //Updates every xp cooldown based on the difference between current time and last time they have been updated. NOTE: This has to be copied for every set of button cooldowns
+        if (game.xpBoost.buttonCooldowns[i] > 0) game.xpBoost.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))
+        if (game.xpBoost.buttonCooldowns[i] < 0) game.xpBoost.buttonCooldowns[i] = 0
+        if (!game.xpBoost.buttonCooldowns[i]) game.xpBoost.buttonCooldowns[i] = 0
+    }
+    if (game.player.online == true) {
+        game.player.timePlayed += (Date.now() - game.player.timeOfLastUpdate) / 1000 
+    } //When you load, the "online" tag gets set to false. If it's false, on the first loop of update large it'll get set to true. Then, when true, updates playtime
+    else {
+        game.player.online = true
+    }
     game.player.timeOfLastUpdate = Date.now()
 }
 setInterval(updateLarge, 50) //Everything will update at ~20fps 
@@ -275,7 +314,7 @@ function wholeNumberShort(x) { //What is different about the newspaper zombie, y
     }
 }
 
-function xpUnlocks() { //Pending to remake this to the whole big number system, to do later
+function xpUnlocks() { //Pending to remake this to the whole big number system, to do later, will probably scrap this into a just "level check for individual"
     if (game.player.unlocks < unlockLevelsSmall.length) {
         for (let i = 0; i < unlockLevelsSmall.length; i++) {
             if (convertToNormal(game.xp.level) >= unlockLevelsSmall[i] && game.player.unlocks < i + 1) { game.player.unlocks = i + 1 }
@@ -288,3 +327,15 @@ function xpUnlocks() { //Pending to remake this to the whole big number system, 
     }
 }
 setInterval(xpUnlocks, 50)
+
+function gridInitializer() { //Ignore this, it was a test, you might not see this in action until 2027, idk
+    if (!(game.mining.grid.length == game.mining.gridSize)) {
+        let oreInfo = [0, 0, 0, 0]
+        let rows = [0]
+        for (let i=0; i<game.mining.gridSize; i++) {rows[i] = oreInfo}
+        let table = [0]
+        for (let i=0; i<game.mining.gridSize; i++) {table[i] = rows}
+        game.mining.grid = table
+    }
+}
+gridInitializer()

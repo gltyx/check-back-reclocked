@@ -1,13 +1,13 @@
-const petButtons = [ //The stats of every single xp button, also they are found on tab 2.1
-    { name: "petButton0", id: 0, cooldown: 600, unlock: 5, crateName: "basic" },
-    { name: "petButton1", id: 1, cooldown: 1200, unlock: 6, crateName: "nature" },
-    { name: "petButton2", id: 2, cooldown: 3000, unlock: 9, crateName: "earth" },
+const petButtons = [ //The stats of every single pet button, also they are found on tab 2.2
+    { name: "petButton0", id: 0, cooldown: 600, unlock: 5, crateName: "basic" }, //Level 8
+    { name: "petButton1", id: 1, cooldown: 1200, unlock: 6, crateName: "nature" }, //Level 12
+    { name: "petButton2", id: 2, cooldown: 3000, unlock: 9, crateName: "earth" }, //Level 40
 ]
 
 const petBorders = [
     { upto: 4, color: "555" }, //1-4, Basic crate
-    { upto: 10, color: "2c2" }, //5-10, Common crate
-    { upto: 18, color: "a42" }, //11-18
+    { upto: 10, color: "2c2" }, //5-10, Nature crate
+    { upto: 18, color: "a42" }, //11-18, Earth
     { upto: 999, color: "fff" },
 ]
 
@@ -70,12 +70,13 @@ function petBorderColor(x) {
 
 function showPetInfo(x) {
     if (x == 0) { document.getElementById("petInfo").innerHTML = "" }
-    else document.getElementById("petInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>" + pets[x].name + "</span><br>You have " + wholeNumberShort(game.pets.amount[x]) + "<br><br>" + pets[x].specialText + "</p><br><img src='img/pets/" + x + ".png' style='width: 50%'><br><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Effects:</span><br>" + petStats(x) + "</p></center>"
+    else document.getElementById("petInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>" + pets[x].name + "</span><br>You have " + wholeNumberShort(game.pets.amount[x]) + "<br><br>" + pets[x].specialText + "</p><br><img src='img/pets/" + x + ".png' style='width: 50%'><br><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Effects:</span><br>" + petBonus(x) + "</p></center>"
 }
 
-function petStats(x) {
+function petBonus(x) {
     result = ""
-    if (pets[x].xpMulti > 1) result += "x" + numberShort(pets[x].xpMulti) + " XP<br>"
+    if (!!pets[x].xpMulti) result += "x" + numberShort(pets[x].xpMulti) + " XP<br>"
+    if (!!pets[x].xpCooldown) result += "/" + numberShort(pets[x].xpCooldown) + " XP Cooldowns<br>"
     return result
 }
 
@@ -108,6 +109,7 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
             let petChosen = petsList[i][0]
             if (!game.pets.amount[petChosen]) { game.pets.amount[petChosen] = amount }
             else { game.pets.amount[petChosen] += amount }
+            if (game.pets.amount[petChosen] >= 1 && game.pets.individualDiscovered[petChosen] == 0) {game.pets.individualDiscovered[petChosen] = 1}
             latestDrops(petChosen, amount)
         }
     }
@@ -182,7 +184,7 @@ function displayUnboxPets(x) {
 
 function showPetUnboxInfo(x) {
     if (x == 0) { document.getElementById("unboxInfo").innerHTML = "" }
-    else document.getElementById("unboxInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>" + pets[x].name + "</span><br>You have " + wholeNumberShort(game.pets.amount[x]) + "<br><br>" + pets[x].specialText + "</p><br><img src='img/pets/" + x + ".png' style='width: 50%'><br><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Effects:</span><br>" + petStats(x) + "</p></center>"
+    else document.getElementById("unboxInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>" + pets[x].name + "</span><br>You have " + wholeNumberShort(game.pets.amount[x]) + "<br><br>" + pets[x].specialText + "</p><br><img src='img/pets/" + x + ".png' style='width: 50%'><br><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Effects:</span><br>" + petBonus(x) + "</p></center>"
 }
 
 function latestDrops(x, y) {
@@ -190,7 +192,7 @@ function latestDrops(x, y) {
     for (let i = 0; i < game.pets.unboxString.length; i++) {
         if (x == game.pets.unboxString[i][0]) { //This line checks if the id is found inside the string. In case it is, it does the following:
             game.pets.unboxString[i][1] += y //Adds the specified amount (1 unless using simulated)
-            i = game.pets.unboxString.length //Stops the count
+            i = game.pets.unboxString.length //Stops the count (Can be done with a "while (condition) && i < amount, but then you'd have to write the 1")
             added = 1 //The pet has been added
         }
     }

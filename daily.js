@@ -8,7 +8,7 @@ function openCloseDailyTab() {
         displayDaily()
     }
 }
-
+//This might be completely scrapped tbh
 function displayDaily() {
     document.getElementById("dailyListInner").innerHTML = ""
     let dailyBox = document.createElement("div")

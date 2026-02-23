@@ -1,35 +1,37 @@
 const XPButtons = [ //The stats of every single xp button, also they are found on tab 2.1
-    { name: "XPbutton0", xpMantissa: 1, xpExponent: 1, cooldown: 60, unlock: 0 }, //10
-    { name: "XPbutton1", xpMantissa: 2, xpExponent: 1, cooldown: 120, unlock: 1 }, //20
-    { name: "XPbutton2", xpMantissa: 3, xpExponent: 1, cooldown: 300, unlock: 2 }, //30
-    { name: "XPbutton3", xpMantissa: 5, xpExponent: 1, cooldown: 600, unlock: 3 }, //50
-    { name: "XPbutton4", xpMantissa: 1, xpExponent: 2, cooldown: 1800, unlock: 4 }, //100
-    { name: "XPbutton5", xpMantissa: 2, xpExponent: 2, cooldown: 3600, unlock: 7 }, //200
-    { name: "XPbutton6", xpMantissa: 5, xpExponent: 2, cooldown: 10800, unlock: 8 }, //500
-    { name: "XPbutton7", xpMantissa: 1, xpExponent: 3, cooldown: 21600, unlock: 11 }, //1000
-    { name: "XPbutton8", xpMantissa: 1.5, xpExponent: 3, cooldown: 43200, unlock: 12 }, //1500
-    { name: "XPbutton9", xpMantissa: 2.5, xpExponent: 3, cooldown: 86400, unlock: 15 }, //Not planned yet after here 2500
-    { name: "XPbutton10", xpMantissa: 5, xpExponent: 3, cooldown: 259200, unlock: 17 }, //5000
-    { name: "XPbutton11", xpMantissa: 1, xpExponent: 4, cooldown: 604800, unlock: 18 }, //10000
+    { name: "XPbutton0", xpGain: [1, 1], cooldown: 60, unlock: 0 }, //10-1m, level 1
+    { name: "XPbutton1", xpGain: [2, 1], cooldown: 120, unlock: 1 }, //20-2m, level 2
+    { name: "XPbutton2", xpGain: [3, 1], cooldown: 300, unlock: 2 }, //30-5m, level 3
+    { name: "XPbutton3", xpGain: [5, 1], cooldown: 600, unlock: 3 }, //50-10m, level 4
+    { name: "XPbutton4", xpGain: [1, 2], cooldown: 1800, unlock: 4 }, //100-30m, level 6
+    { name: "XPbutton5", xpGain: [2, 2], cooldown: 3600, unlock: 7 }, //200-1h, level 20
+    { name: "XPbutton6", xpGain: [5, 2], cooldown: 10800, unlock: 8 }, //500-3h, level 30
+    { name: "XPbutton7", xpGain: [1, 3], cooldown: 21600, unlock: 10 }, //1000-6h, level 60
+    { name: "XPbutton8", xpGain: [1.5, 3], cooldown: 43200, unlock: 11 }, //1500-12h, level 80
+    { name: "XPbutton9", xpGain: [2.5, 3], cooldown: 86400, unlock: 130 }, //2500-1d, 
+    { name: "XPbutton10", xpGain: [5, 3], cooldown: 259200, unlock: 170 }, //5000-3d
+    { name: "XPbutton11", xpGain: [1, 4], cooldown: 604800, unlock: 180 }, //10000-7d
 ]
 
 function xpButton(x) {
     game.xp.amount = addBig(game.xp.amount, calculateXPGain(x)) //Adds your xp
-    game.xp.buttonCooldowns[x] = XPButtons[x].cooldown / game.xp.cooldown //Sets the xp button cooldown to the required time
+    game.xp.buttonCooldowns[x] = Math.max(XPButtons[x].cooldown / game.xp.cooldown, 1) //Sets the xp button cooldown to the required time
     game.player.buttonClicks += 1
 }
 
 function calculateXPGain(x) { //You insert this command with the desired xp amount and it returns the gain after multipliers
-    let base = [XPButtons[x].xpMantissa, XPButtons[x].xpExponent]
-    let result = multiplyBig(base, game.xp.multiplier)
+    let result = multiplyBig(XPButtons[x].xpGain, game.xp.multiplier)
     return result
 }
 
 function calculateXPStats() {
     let baseMulti = [1, 0] //This has to be multiplied by each factor, 1 line at a time
     baseMulti = multiplyBig(baseMulti, pets[game.pets.equipped].xpMulti) //Although pet multiplier being "small", it can get converted to big
+    baseMulti = multiplyBig(baseMulti, game.xpBoost.effectiveBoost) //xpboost effect
     game.xp.multiplier = baseMulti
-    game.xp.cooldown = 1 //Calculates your xp cooldown divider
+    let baseCooldown = 1 //xp cooldown divider
+    baseCooldown = baseCooldown * pets[game.pets.equipped].xpCooldown //No need to do them 1 by 1 but I prefer doing it like this
+    game.xp.cooldown = baseCooldown //Calculates your xp cooldown divider
 }
 setInterval(calculateXPStats, 50)
 
