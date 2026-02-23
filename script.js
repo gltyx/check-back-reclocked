@@ -135,6 +135,7 @@ function loadGame(loadgame) {
         window.alert(`Save Data Issues!\n${err}`); //whatever you want to say here
     }
     //Updates arrays of things like pets so that any new existing slot is 0 instead of undefined [where undefined + 1 = NaN]
+    if (!game.pets.individualDiscovered) { game.pets.individualDiscovered = [0]}
     for (i = 0; i < pets.length; i++) {
         if (!game.pets.amount[i]) { game.pets.amount[i] = 0 }
         if (!game.pets.individualDiscovered[i]) { game.pets.individualDiscovered[i] = 0 } 

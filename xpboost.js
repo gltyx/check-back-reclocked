@@ -20,7 +20,7 @@ function calculateXPBStats() {
     //baseMulti = multiplyBig(baseMulti, (stat))
     game.xpBoost.multiplier = baseMulti
     game.xpBoost.cooldown = 1 //Calculates the cooldown divider, nothing about it for now
-    game.xpBoost.effectExpo = [1, 1] //Sets the exponent
+    game.xpBoost.effectExpo = [1, 0] //Sets the exponent
     game.xpBoost.effectiveBoost = exponentBig(game.xpBoost.amount, game.xpBoost.effectExpo) //Amount^Expo
 }
 setInterval(calculateXPBStats, 50)
