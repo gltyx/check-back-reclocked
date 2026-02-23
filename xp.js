@@ -26,11 +26,11 @@ function calculateXPGain(x) { //You insert this command with the desired xp amou
 
 function calculateXPStats() {
     let baseMulti = [1, 0] //This has to be multiplied by each factor, 1 line at a time
-    baseMulti = multiplyBig(baseMulti, pets[game.pets.equipped].xpMulti) //Although pet multiplier being "small", it can get converted to big
+    if (!!pets[game.pets.equipped].xpMulti) baseMulti = multiplyBig(baseMulti, pets[game.pets.equipped].xpMulti) //Although pet multiplier being "small", it can get converted to big
     baseMulti = multiplyBig(baseMulti, game.xpBoost.effectiveBoost) //xpboost effect
     game.xp.multiplier = baseMulti
     let baseCooldown = 1 //xp cooldown divider
-    baseCooldown = baseCooldown * pets[game.pets.equipped].xpCooldown //No need to do them 1 by 1 but I prefer doing it like this
+    if (!!pets[game.pets.equipped].xpCooldown) baseCooldown = baseCooldown * pets[game.pets.equipped].xpCooldown //No need to do them 1 by 1 but I prefer doing it like this
     game.xp.cooldown = baseCooldown //Calculates your xp cooldown divider
 }
 setInterval(calculateXPStats, 50)
