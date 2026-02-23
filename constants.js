@@ -109,6 +109,14 @@ const pets = [
     { name: "Scorpion", xpMulti: 10, xpCooldown: 1.05, specialText: "People used to call me the 'Death Scorpion' but I prefer being a farmer, so I dropped the name." }, //16
     { name: "Cat", xpMulti: 12, xpCooldown: 1.07, specialText: "Maybe the fastest sheriff of the wild west, if the cat were to behave correctly." }, //17
     { name: "Earth Dragon", xpMulti: 15, xpCooldown: 1.1, specialText: "The father of the Earth, this dragon can make life out of sticks and stones." }, //18
+    { name: "Burning Eyeball", xpMulti: 10, xpCooldown: 1.05, specialText: "Blinded by it's own blaze of glory" }, //19
+    { name: "Red Slime", xpMulti: 15, xpCooldown: 1.09, specialText: "It was him! He stole my pizza! Stronzo amaro" }, //20
+    { name: "Red Snake", xpMulti: 22, xpCooldown: 1.13, specialText: "It's hot, that's all... nevermind, it self combusted" }, //21
+    { name: "Red Butterfly", xpMulti: 30, xpCooldown: 1.18, specialText: "Can survive flying through flames. If you ride it, however, you couldn't survive" }, //22
+    { name: "Fire Spirit", xpMulti: 40, xpCooldown: 1.24, specialText: "This side of the wind generates a better hairline. WAIT! I cast a shadow????" }, //23
+    { name: "Fiery Fish", xpMulti: 60, xpCooldown: 1.3, specialText: "Evaporates all water around it. That's why it lives on land" }, //24
+    { name: "Sleepy Fire Demon", xpMulti: 80, xpCooldown: 1.35, specialText: "20 hours no sleep, 3'o clock in the morning, no fuel left to be evil" }, //25
+    { name: "Fire Dragon", xpMulti: 100, xpCooldown: 1.4, specialText: "He's so powerful that has to be nerfed by leaving a path of ashes whenever he goes" }, //26
 ]
 
 const basicUnboxChances = [
@@ -121,6 +129,10 @@ const natureUnboxChances = [
 
 const earthUnboxChances = [
     [11, 1], [12, 0.47], [13, 0.39], [14, 0.27], [15, 0.17], [16, 0.09], [17, 0.03], [18, 0.01]
+]
+
+const fireUnboxChances = [
+    [19, 1], [20, 0.4], [21, 0.34], [22, 0.23], [23, 0.1], [24, 0.04], [25, 0.012], [26, 0.004]
 ]
 
 const stats = [

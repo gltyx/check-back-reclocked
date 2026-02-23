@@ -2,12 +2,14 @@ const petButtons = [ //The stats of every single pet button, also they are found
     { name: "petButton0", id: 0, cooldown: 600, unlock: 5, crateName: "basic" }, //Level 8
     { name: "petButton1", id: 1, cooldown: 1200, unlock: 6, crateName: "nature" }, //Level 12
     { name: "petButton2", id: 2, cooldown: 3000, unlock: 9, crateName: "earth" }, //Level 40
+    { name: "petButton3", id: 3, cooldown: 7200, unlock: 14, crateName: "fire" }, //Level 200
 ]
 
 const petBorders = [
     { upto: 4, color: "555" }, //1-4, Basic crate
     { upto: 10, color: "2c2" }, //5-10, Nature crate
     { upto: 18, color: "a42" }, //11-18, Earth
+    { upto: 26, color: "e42" }, //11-18, Fire
     { upto: 999, color: "fff" },
 ]
 
@@ -99,6 +101,7 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
     if (x == 0) { petsList = basicUnboxChances }
     if (x == 1) { petsList = natureUnboxChances }
     if (x == 2) { petsList = earthUnboxChances }
+    if (x == 3) { petsList = fireUnboxChances }
     for (let i = 0; i < petsList.length; i++) {
         let odds = petsList[i][1] * game.pets.luck //To add luck factor in here, and also some sort of repeated rolls thing
         let minimum = Math.floor(odds)
@@ -133,6 +136,10 @@ function displayPetRarities(x) {
         if (x == 2) {
             petsList = earthUnboxChances
             document.getElementById("petRarities").innerHTML = "<img src='img/crateEarth.png' style='width:6vh'><br><b>Rarities for this crate:</b><br>"
+        }
+        if (x == 3) {
+            petsList = fireUnboxChances
+            document.getElementById("petRarities").innerHTML = "<img src='img/crateFire.png' style='width:6vh'><br><b>Rarities for this crate:</b><br>"
         }
         for (let i = 0; i < petsList.length; i++) {
             let odds = petsList[i][1] * game.pets.luck
