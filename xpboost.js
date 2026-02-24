@@ -1,7 +1,8 @@
 const XPBoostButtons = [ //The stats of every single xp boost button, also they are found on tab 2.3 ig
     { name: "XPBbutton0", xpBGain: [1, -1], cooldown: 600, unlock: 12 }, //0.1-10m, level 100
     { name: "XPBbutton1", xpBGain: [2.5, -1], cooldown: 1800, unlock: 13 }, //0.25-30m, level 150
-    
+    { name: "XPBbutton2", xpBGain: [5, -1], cooldown: 3600, unlock: 16 }, //0.5-1h, level 300
+    { name: "XPBbutton3", xpBGain: [1, 0], cooldown: 9000, unlock: 17 }, //1-2.5h, level 400
 ]
 
 function xpBButton(x) {

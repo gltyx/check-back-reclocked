@@ -198,7 +198,6 @@ function updateSmall() { //This part checks if buttons are available or not, add
         i = 0
         while (compareBig(game.xp.level, levelBarColours[i + 1][0])) i++
         document.getElementById("levelBar").style.backgroundColor = levelBarColours[i][1]
-        console.log(i)
         if (game.xp.level >= levelBarTextures[0]) {
             i = 0
             while (compareBig(game.xp.level, levelBarTextures[i])) i++

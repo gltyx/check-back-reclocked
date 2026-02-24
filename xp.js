@@ -8,7 +8,7 @@ const XPButtons = [ //The stats of every single xp button, also they are found o
     { name: "XPbutton6", xpGain: [5, 2], cooldown: 10800, unlock: 8 }, //500-3h, level 30
     { name: "XPbutton7", xpGain: [1, 3], cooldown: 21600, unlock: 10 }, //1000-6h, level 60
     { name: "XPbutton8", xpGain: [1.5, 3], cooldown: 43200, unlock: 11 }, //1500-12h, level 80
-    { name: "XPbutton9", xpGain: [2.5, 3], cooldown: 86400, unlock: 130 }, //2500-1d, 
+    { name: "XPbutton9", xpGain: [2.5, 3], cooldown: 86400, unlock: 15 }, //2500-1d, level 250
     { name: "XPbutton10", xpGain: [5, 3], cooldown: 259200, unlock: 170 }, //5000-3d
     { name: "XPbutton11", xpGain: [1, 4], cooldown: 604800, unlock: 180 }, //10000-7d
 ]

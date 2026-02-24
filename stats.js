@@ -29,7 +29,8 @@ function displayStats() {
         statsBoxes[i - 1].setAttribute("id", i)
         statsBoxes[i - 1].addEventListener('click', function () { if (stats[parseInt(this.id)].unlock <= game.player.unlocks) { showStatInfo(parseInt(this.id)) } })
         if (game.player.unlocks >= stats[i].unlock) { //1st value is red, 2nd green and 3rd blue
-            if (i == 3) { statsBoxes[i - 1].innerHTML = "<img src='img/pets/" + game.pets.equipped + ".png' style='width: 128px'>" }
+            if (i == 4) { statsBoxes[i - 1].innerHTML = "<img src='img/pets/" + game.pets.equipped + ".png' style='width: 128px'>" }
+            else if (i == 2) { statsBoxes[i - 1].innerHTML = "<img src='img/statImages/" + i + ".gif' style='width: 128px'>" }
             else { statsBoxes[i - 1].innerHTML = "<img src='img/statImages/" + i + ".png' style='width: 128px'>" }
             statsBoxes[i - 1].style.border = "8px outset #D6AE01"
         }
@@ -43,8 +44,9 @@ function displayStats() {
 function showStatInfo(x) {
     if (x == 0) { document.getElementById("statsInfo").innerHTML = "Hello World" }
     if (x == 1) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Player stats</span><br><br>" + playerStats() }
-    if (x == 2) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>XP Stats</span><br><br>" + xpStats() }
-    if (x == 3) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Pet Stats</span><br><br>" + petStats() }
+    if (x == 2) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Credits</span><br><br>Demonin: <a href=\"https://demonin.com/games/checkBack\" target=\"_blank\">Original Check Back</a> idea<br>Alderi: Helpful css changes<br>All testers<br>Everyone who played, including you <3"}
+    if (x == 3) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>XP Stats</span><br><br>" + xpStats() }
+    if (x == 4) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Pet Stats</span><br><br>" + petStats() }
 }
 
 function playerStats() {
@@ -75,6 +77,7 @@ function petStats() {
     if (game.player.unlocks >= petButtons[0].unlock) {result += "Basic crate: " + wholeNumberShort(countPets(1, 4)) + "/4<br>"}
     if (game.player.unlocks >= petButtons[1].unlock) {result += "Nature crate: " + wholeNumberShort(countPets(5, 10)) + "/6<br>"}
     if (game.player.unlocks >= petButtons[2].unlock) {result += "Earth crate: " + wholeNumberShort(countPets(11, 18)) + "/8<br>"}
+    if (game.player.unlocks >= petButtons[3].unlock) {result += "Fire crate: " + wholeNumberShort(countPets(19, 26)) + "/8<br>"}
     result += "TOTAL: " + wholeNumberShort(countPets(1, pets.length - 1)) + "/" + wholeNumberShort(pets.length - 1) + "<br><br>"
     return result
 }

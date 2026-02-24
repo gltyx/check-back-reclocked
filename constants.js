@@ -1,4 +1,4 @@
-const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 1000000000] //This will probably be remade completely
+const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 1000000000] //This will probably be remade completely
 const unlockLevelsBig = [12, 15, 18, 21, 24, 27, 30, 100, 1000000000]
 const permanentUnlockLevels = [50, 100000000]
 const permanentUnlocks = [10, 100000]
@@ -139,6 +139,7 @@ const stats = [
     //Name, unlock required
     { name: "Test", unlock: 0 },
     { name: "Player", unlock: 0 },
+    { name: "Credits", unlock: 0 },
     { name: "XP Multipliers", unlock: 0 },
     { name: "Crate multipliers", unlock: 5 },
 ]

@@ -28,7 +28,6 @@ const otherFunniesDisplay = [
 
 function tab(x) {
     game.player.currentTab = [x, 0]
-    console.log(x)
 }
 
 function subtab(x) {
