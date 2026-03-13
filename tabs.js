@@ -41,6 +41,7 @@ function displayTabContent() {
         if (game.player.unlocks >= XPButtons[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 1])) { document.getElementById(XPButtons[i].name).style.display = "block" }
         else { document.getElementById(XPButtons[i].name).style.display = "none" }
     }
+    if (JSON.stringify(game.player.currentTab) == JSON.stringify([2, 1])) { document.getElementById("petRarities").innerHTML = "XP Multi: x" + displayBig(game.xp.multiplier) + "<br>Cooldowns: /" + numberShort(game.xp.cooldown) }
     for (i = 0; i < petButtons.length; i++) { //If the player has the unlock requirement for a crate button AND is inside the specific tab, the button will show, either it will hide
         if (game.player.unlocks >= petButtons[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 2])) { document.getElementById(petButtons[i].name).style.display = "block" }
         else { document.getElementById(petButtons[i].name).style.display = "none" }
@@ -48,13 +49,16 @@ function displayTabContent() {
     for (i = 0; i < XPBoostButtons.length; i++) { //If the player has the unlock requirement for an xp boost button AND is inside the specific tab, the button will show, either it will hide
         if (game.player.unlocks >= XPBoostButtons[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 3])) { document.getElementById(XPBoostButtons[i].name).style.display = "block" }
         else { document.getElementById(XPBoostButtons[i].name).style.display = "none" }
-        document.getElementById("petRarities").innerHTML = XPBoostEffects()
     }
-    if (game.player.unlocks >= 18 && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) { document.getElementById("tokenButton0").style.display = "block" }
+    if (JSON.stringify(game.player.currentTab) == JSON.stringify([2, 3])) document.getElementById("petRarities").innerHTML = XPBoostEffects()
+    if (game.player.unlocks >= 18 && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) {
+        document.getElementById("tokenButton0").style.display = "block" 
+        document.getElementById("petRarities").innerHTML = ""
+    }
     else { document.getElementById("tokenButton0").style.display = "none" }
     for (i = 1; i < tokenUpgrades.length; i++) {
-        if (tokenUpgradeAvailable(i) && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) {document.getElementById(tokenUpgrades[i].name).style.display = "block"}
-        else {document.getElementById(tokenUpgrades[i].name).style.display = "none"}
+        if (tokenUpgradeAvailable(i) && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) { document.getElementById(tokenUpgrades[i].name).style.display = "block" }
+        else { document.getElementById(tokenUpgrades[i].name).style.display = "none" }
     }
 }
 setInterval(displayTabContent, 50)
