@@ -1,4 +1,4 @@
-const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000000000] //This will probably be remade completely
+const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 1000000000] //This will probably be remade completely
 const unlockLevelsBig = [12, 15, 18, 21, 24, 27, 30, 100, 1000000000]
 const permanentUnlockLevels = [50, 100000000]
 const permanentUnlocks = [10, 100000]
@@ -150,4 +150,6 @@ const tokenUpgrades = [ //Name, base upgrade cost (Big), cost scaling (Big, 1 = 
     {name: "tokenUpgrade2", baseCost: 1, costScaling: 5, levels: 2, unlock: 18, reqs: 0, recList: [0], effect: "+/0.05 XP cooldowns per level"},
     {name: "tokenUpgrade3", baseCost: 2, costScaling: 2, levels: 5, unlock: 18, reqs: 0, recList: [0], effect: "+0.1x XPBoost per level"},
     {name: "tokenUpgrade4", baseCost: 5, costScaling: 5, levels: 2, unlock: 18, reqs: 0, recList: [0], effect: "+0.25x Tokens per level"},
+    {name: "tokenUpgrade5", baseCost: 5, costScaling: 1, levels: 10, unlock: 19, reqs: 1, recList: [1], effect: "+0.25x XP per level"},
+    {name: "tokenUpgrade6", baseCost: 5, costScaling: 2, levels: 5, unlock: 20, reqs: 1, recList: [3], effect: "+0.25x XPBoost per level"},
 ]

@@ -21,8 +21,7 @@ function addTicks(x) {
 
 function calculateTokenGain() {
     let baseAmount = 0.1
-    //Some factors
-    baseAmount = baseAmount * (1 + 0.25 * game.tokens.upgrades[4])
+    baseAmount *= game.tokenBonuses.tokens
     if (game.tokens.bankAmount > 1) {baseAmount = (baseAmount/game.tokens.bankAmount)}
     game.tokens.gain = baseAmount
 }
@@ -79,15 +78,33 @@ function tokenUpgradeAvailable(x) {
     if (game.tokens.upgrades[x] < tokenUpgrades[x].levels && game.player.unlocks >= tokenUpgrades[x].unlock) {
         if (tokenUpgrades[x].reqs == 0) {result = true}
         else {
-            let completed = 0
+            let completed = true
             let list = tokenUpgrades[x].recList
-            for (let i = 0; i < tokenUpgrades[x].reqs; i++) {
-                if (game.tokens.upgrades[list[i]] >= tokenUpgrades[list[i]].levels) {
-                    completed++
+            for (let i = 0; i < list.length; i++) {
+                if (game.tokens.upgrades[list[i]] < tokenUpgrades[list[i]].levels) {
+                    completed = false
                 }
             }
-            if (completed == tokenUpgrades[x].reqs) {result == true}
+            result = completed
         }
     }
     return result
 }
+
+function calculateTokenUpgradeBoosts() {
+    let baseXP = [1, 0]
+    baseXP = multiplyBig(baseXP, 1 + 0.1 * game.tokens.upgrades[1])
+    baseXP = multiplyBig(baseXP, 1 + 0.25 * game.tokens.upgrades[5])
+    game.tokenBonuses.xp = baseXP
+    let baseXPcooldown = 1
+    baseXPcooldown *= (1 + 0.05 * game.tokens.upgrades[2])
+    game.tokenBonuses.xpCooldown = baseXPcooldown
+    let baseXPBoost = [1, 0]
+    baseXPBoost = multiplyBig(baseXPBoost, 1 + 0.1 * game.tokens.upgrades[3])
+    baseXPBoost = multiplyBig(baseXPBoost, 1 + 0.25 * game.tokens.upgrades[6])
+    game.tokenBonuses.xpBoost = baseXPBoost
+    let baseTokens = 1
+    baseTokens *= (1 + 0.25 * game.tokens.upgrades[4])
+    game.tokenBonuses.tokens = baseTokens
+}
+setInterval(calculateTokenUpgradeBoosts, 50)

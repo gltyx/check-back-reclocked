@@ -3,6 +3,7 @@ const XPBoostButtons = [ //The stats of every single xp boost button, also they 
     { name: "XPBbutton1", xpBGain: [2.5, -1], cooldown: 1800, unlock: 13 }, //0.25-30m, level 150
     { name: "XPBbutton2", xpBGain: [5, -1], cooldown: 3600, unlock: 16 }, //0.5-1h, level 300
     { name: "XPBbutton3", xpBGain: [1, 0], cooldown: 9000, unlock: 17 }, //1-2.5h, level 400
+    { name: "XPBbutton4", xpBGain: [2, 0], cooldown: 19800, unlock: 20 }, //2-5.5m, level 2000
 ]
 
 function xpBButton(x) {
@@ -19,7 +20,7 @@ function calculateXPBGain(x) { //You insert this command with the desired xp amo
 function calculateXPBStats() {
     let baseMulti = [1, 0] //This has to be multiplied by each factor, 1 line at a time
     //baseMulti = multiplyBig(baseMulti, (stat))
-    baseMulti = multiplyBig(baseMulti, 1 + 0.1 * game.tokens.upgrades[3])
+    baseMulti = multiplyBig(baseMulti, game.tokenBonuses.xpBoost)
     game.xpBoost.multiplier = baseMulti
     game.xpBoost.cooldown = 1 //Calculates the cooldown divider, nothing about it for now
     game.xpBoost.effectExpo = [1, 0] //Sets the exponent

@@ -38,6 +38,12 @@ function reset() {
             upgrades: [0, 0, 0], //List of normals
             autoTicks: 0, //Normal
         },
+        tokenBonuses: {
+            xp: [1, 0],
+            xpCooldown: 1,
+            xpBoost: [1, 0],
+            tokens: 1,
+        },
         player: {
             highestLevel: [1, 0], //Big
             ranks: 0, //Normal

@@ -67,10 +67,10 @@ function xpStats() {
     let result = "XP Multipliers:<br>"
     if (!!pets[game.pets.equipped].xpMulti) { result += "x" + displayBig(pets[game.pets.equipped].xpMulti) + " from pets<br>" }
     if (compareBig(game.xpBoost.amount, [1, 0])) { result += "x" + displayBig(game.xpBoost.effectiveBoost) + " from XPBoost<br>"}
-    if (game.tokens.upgrades[1] > 0) {result += "x" + displayBig(1 + 0.1 * game.tokens.upgrades[1]) + " from token upgrades<br>"}
+    if (compareBig(game.tokenBonuses.xp, [1, 0])) {result += "x" + displayBig(game.tokenBonuses.xp) + " from token upgrades<br>"}
     result += "TOTAL: x" + displayBig(game.xp.multiplier) + "<br><br>XP Cooldown modifiers:<br>"
     if (!!pets[game.pets.equipped].xpCooldown) { result += "/" + numberShort(pets[game.pets.equipped].xpCooldown) + " from pets<br>"}
-    if (game.tokens.upgrades[2] > 0) {result += "/" + displayBig(1 + 0.05 * game.tokens.upgrades[2]) + " from token upgrades<br>"}
+    if (game.tokenBonuses.xpCooldown > 1) {result += "/" + numberShort(game.tokenBonuses.xpCooldown) + " from token upgrades<br>"}
     result += "TOTAL: /" + numberShort(game.xp.cooldown)
     return result
 }
