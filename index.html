@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <meta content="Check Back Reclocked" property="og:title" />
     <meta content="Prepare your clock to check back later." property="og:description" />
-    <meta content="img/icon.png" property="og:image" />
+    <meta content="img/icon2.png" property="og:image" />
     <meta content="#008888" data-react-helmet="true" name="theme-color" />
     <meta name="color-scheme" content="light only">
     <title>Check Back Reclocked</title>
@@ -41,7 +41,7 @@
             <button class="button" id="XPTab" style="display: none" onclick="subtab(1)">XP Buttons</button>
             <button class="button" id="CratesTab" style="display: none" onclick="subtab(2)">Pet Crates</button>
             <button class="button" id="XPBTab" style="display: none" onclick="subtab(3)">XPBoost Buttons</button>
-
+            <button class="button" id="TokenTab" style="display: none" onclick="subtab(4)">Token Buttons</button>
 
             <button class="button" id="XPbutton0" style="display: none" onclick="xpButton(0)">Gain 10 XP</button>
             <button class="button" id="XPbutton1" style="display: none" onclick="xpButton(1)">Gain 20 XP</button>
@@ -76,6 +76,12 @@
             <button class="button" id="XPBbutton2" style="display: none" onclick="xpBButton(2)">Gain 0.5
                 XPBoost</button>
             <button class="button" id="XPBbutton3" style="display: none" onclick="xpBButton(3)">Gain 1 XPBoost</button>
+
+            <button class="button" id="tokenButton0" style="display: none" onclick="collectToken()">Gain 1 Token</button>
+            <button class="button" id="tokenUpgrade1" style="display: none" onclick="buyTokenUpgrade(1)">Upgrade 1</button>
+            <button class="button" id="tokenUpgrade2" style="display: none" onclick="buyTokenUpgrade(2)">Upgrade 1</button>
+            <button class="button" id="tokenUpgrade3" style="display: none" onclick="buyTokenUpgrade(3)">Upgrade 1</button>
+            <button class="button" id="tokenUpgrade4" style="display: none" onclick="buyTokenUpgrade(4)">Upgrade 1</button>
         </div>
 
         <div id="infosContainer">
@@ -177,6 +183,7 @@
     <script src="tabs.js"></script>
     <script src="xp.js"></script>
     <script src="xpboost.js"></script>
+    <script src="tokens.js"></script>
     <script src="pets.js"></script>
     <script src="daily.js"></script>
     <script src="script.js"></script>

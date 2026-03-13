@@ -19,6 +19,7 @@ function calculateXPBGain(x) { //You insert this command with the desired xp amo
 function calculateXPBStats() {
     let baseMulti = [1, 0] //This has to be multiplied by each factor, 1 line at a time
     //baseMulti = multiplyBig(baseMulti, (stat))
+    baseMulti = multiplyBig(baseMulti, 1 + 0.1 * game.tokens.upgrades[3])
     game.xpBoost.multiplier = baseMulti
     game.xpBoost.cooldown = 1 //Calculates the cooldown divider, nothing about it for now
     game.xpBoost.effectExpo = [1, 0] //Sets the exponent

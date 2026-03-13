@@ -193,3 +193,7 @@ function convertToNormal(a) { //Converts an array that represents a big number t
     if (a[1] < 308) { return (a[0] * 10 ** a[1]) }
     else return "Error: Number too big to be converted back"
 }
+
+function floor(a) { //Would make a number a = 12.3 as [1.23, 1] to their rounding [1.2, 1], if it makes sense
+    
+}

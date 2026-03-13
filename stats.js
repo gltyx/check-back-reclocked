@@ -44,7 +44,7 @@ function displayStats() {
 function showStatInfo(x) {
     if (x == 0) { document.getElementById("statsInfo").innerHTML = "Hello World" }
     if (x == 1) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Player stats</span><br><br>" + playerStats() }
-    if (x == 2) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Credits</span><br><br>Demonin: <a href=\"https://demonin.com/games/checkBack\" target=\"_blank\">Original Check Back</a> idea<br>Alderi: Helpful css changes<br>All testers<br>Everyone who played, including you <3"}
+    if (x == 2) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Credits</span><br><br>Demonin: <a href=\"https://demonin.com/games/checkBack\" target=\"_blank\">Original Check Back</a> idea<br>Alderi: Helpful css changes<br>Mirakos: Clock icon <a href=\"https://itch.io/embed-upload/15381958?color=000000\" target=\"_blank\">(Pixelgrab)</a><br>All testers<br>Everyone who played, including you <3"}
     if (x == 3) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>XP Stats</span><br><br>" + xpStats() }
     if (x == 4) { document.getElementById("statsInfo").innerHTML = "<br><br><center><p style='color: white'><span style='font-size: 32px; font-weight: bold'>Pet Stats</span><br><br>" + petStats() }
 }
@@ -65,9 +65,12 @@ function playerStats() {
 
 function xpStats() {
     let result = "XP Multipliers:<br>"
-    if (pets[game.pets.equipped].xpMulti > 1) { result += "x" + displayBig(pets[game.pets.equipped].xpMulti) + " from pets<br>" }
+    if (!!pets[game.pets.equipped].xpMulti) { result += "x" + displayBig(pets[game.pets.equipped].xpMulti) + " from pets<br>" }
+    if (compareBig(game.xpBoost.amount, [1, 0])) { result += "x" + displayBig(game.xpBoost.effectiveBoost) + " from XPBoost<br>"}
+    if (game.tokens.upgrades[1] > 0) {result += "x" + displayBig(1 + 0.1 * game.tokens.upgrades[1]) + " from token upgrades<br>"}
     result += "TOTAL: x" + displayBig(game.xp.multiplier) + "<br><br>XP Cooldown modifiers:<br>"
-
+    if (!!pets[game.pets.equipped].xpCooldown) { result += "/" + numberShort(pets[game.pets.equipped].xpCooldown) + " from pets<br>"}
+    if (game.tokens.upgrades[2] > 0) {result += "/" + displayBig(1 + 0.05 * game.tokens.upgrades[2]) + " from token upgrades<br>"}
     result += "TOTAL: /" + numberShort(game.xp.cooldown)
     return result
 }

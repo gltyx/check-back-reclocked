@@ -249,7 +249,7 @@ img {
 #petsList,
 #unboxList,
 #statsList,
-#dailyList {
+#dailyList{
     position: relative;
     margin: 0;
     width: 60%;
