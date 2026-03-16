@@ -1,4 +1,4 @@
-const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 1000000000] //This will probably be remade completely
+const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 5000, 1000000000] //This will probably be remade completely
 const unlockLevelsBig = [12, 15, 18, 21, 24, 27, 30, 100, 1000000000]
 const permanentUnlockLevels = [50, 100000000]
 const permanentUnlocks = [10, 100000]
@@ -117,6 +117,14 @@ const pets = [
     { name: "Fiery Fish", xpMulti: 60, xpCooldown: 1.3, specialText: "Evaporates all water around it. That's why it lives on land" }, //24
     { name: "Sleepy Fire Demon", xpMulti: 80, xpCooldown: 1.35, specialText: "20 hours no sleep, 3'o clock in the morning, no fuel left to be evil" }, //25
     { name: "Fire Dragon", xpMulti: 100, xpCooldown: 1.4, specialText: "He's so powerful that has to be nerfed by leaving a path of ashes whenever he goes" }, //26
+    { name: "Small Skeleton", xpMulti: 50, xpCooldown: 1.3, specialText: "Poor child" }, //27
+    { name: "Skeletal Dog", xpMulti: 75, xpCooldown: 1.4, specialText: "Skulls are a mix of tennis balls and bones. 2 in 1" }, //28
+    { name: "Normal Skeleton", xpMulti: 110, xpCooldown: 1.5, specialText: "What do you mean normal? You ra-" }, //29
+    { name: "Skeletal Snake", xpMulti: 150, xpCooldown: 1.6, specialText: "Wait, snakes do not have bones. This is fake" }, //30
+    { name: "Skeletal Vulture", xpMulti: 200, xpCooldown: 1.7, specialText: "He got an F in aerodynamics" }, //31
+    { name: "Skeletal Hound", xpMulti: 275, xpCooldown: 1.8, specialText: "Don't call it a dog or you'll see the difference" }, //32
+    { name: "Skeletal Hydra", xpMulti: 350, xpCooldown: 1.9, specialText: "Each head makes a different bone creak tune" }, //33
+    { name: "Skeletal Dragon", xpMulti: 500, xpCooldown: 2, specialText: "He will come back in Avengers: Doomsday" }, //34
 ]
 
 const basicUnboxChances = [
@@ -133,6 +141,10 @@ const earthUnboxChances = [
 
 const fireUnboxChances = [
     [19, 1], [20, 0.4], [21, 0.34], [22, 0.23], [23, 0.1], [24, 0.04], [25, 0.012], [26, 0.004]
+]
+
+const skeletonUnboxChances = [
+    [27, 1], [28, 0.35], [29, 0.24], [30, 0.17], [31, 0.09], [32, 0.03], [33, 0.009], [34, 0.002],
 ]
 
 const stats = [
@@ -152,4 +164,5 @@ const tokenUpgrades = [ //Name, base upgrade cost (Big), cost scaling (Big, 1 = 
     {name: "tokenUpgrade4", baseCost: 5, costScaling: 5, levels: 2, unlock: 18, reqs: 0, recList: [0], effect: "+0.25x Tokens per level"},
     {name: "tokenUpgrade5", baseCost: 5, costScaling: 1, levels: 10, unlock: 19, reqs: 1, recList: [1], effect: "+0.25x XP per level"},
     {name: "tokenUpgrade6", baseCost: 5, costScaling: 2, levels: 5, unlock: 20, reqs: 1, recList: [3], effect: "+0.25x XPBoost per level"},
+    {name: "tokenUpgrade7", baseCost: 10, costScaling: 5, levels: 2, unlock: 21, reqs: 0, recList: [0], effect: "+0.1x Crate luck per level"},
 ]

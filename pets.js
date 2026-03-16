@@ -3,13 +3,15 @@ const petButtons = [ //The stats of every single pet button, also they are found
     { name: "petButton1", id: 1, cooldown: 1200, unlock: 6, crateName: "nature" }, //Level 12
     { name: "petButton2", id: 2, cooldown: 3000, unlock: 9, crateName: "earth" }, //Level 40
     { name: "petButton3", id: 3, cooldown: 7200, unlock: 14, crateName: "fire" }, //Level 200
+    { name: "petButton4", id: 4, cooldown: 15000, unlock: 21, crateName: "skeleton" }, //Level 5000
 ]
 
 const petBorders = [
     { upto: 4, color: "555" }, //1-4, Basic crate
     { upto: 10, color: "2c2" }, //5-10, Nature crate
     { upto: 18, color: "a42" }, //11-18, Earth
-    { upto: 26, color: "e42" }, //11-18, Fire
+    { upto: 26, color: "e42" }, //19-26, Fire
+    { upto: 34, color: "bbb" }, //27-34, Skeleton
     { upto: 999, color: "fff" },
 ]
 
@@ -102,6 +104,7 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
     if (x == 1) { petsList = natureUnboxChances }
     if (x == 2) { petsList = earthUnboxChances }
     if (x == 3) { petsList = fireUnboxChances }
+    if (x == 4) { petsList = skeletonUnboxChances }
     for (let i = 0; i < petsList.length; i++) {
         let odds = petsList[i][1] * game.pets.luck //To add luck factor in here, and also some sort of repeated rolls thing
         let minimum = Math.floor(odds)
@@ -140,6 +143,10 @@ function displayPetRarities(x) {
         if (x == 3) {
             petsList = fireUnboxChances
             document.getElementById("petRarities").innerHTML = "<img src='img/crateFire.png' style='width:6vh'><br><b>Rarities for this crate:</b><br>"
+        }
+        if (x == 4) {
+            petsList = skeletonUnboxChances
+            document.getElementById("petRarities").innerHTML = "<img src='img/crateSkeleton.png' style='width:6vh'><br><b>Rarities for this crate:</b><br>"
         }
         for (let i = 0; i < petsList.length; i++) {
             let odds = petsList[i][1] * game.pets.luck
@@ -205,3 +212,11 @@ function latestDrops(x, y) {
     }
     if (added == 0) { game.pets.unboxString[game.pets.unboxString.length] = [x, y] } //If after all the attempts, no pet has been added, it will create a new entry up next with the system [pet id, amount]
 }
+
+function calculatePetMultis() {
+    game.pets.cooldown = 1
+    let baseLuck = 1
+    baseLuck *= game.tokenBonuses.luck
+    game.pets.luck = baseLuck
+}
+setInterval(calculatePetMultis, 50)

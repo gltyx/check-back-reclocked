@@ -43,6 +43,7 @@ function reset() {
             xpCooldown: 1,
             xpBoost: [1, 0],
             tokens: 1,
+            luck: 1,
         },
         player: {
             highestLevel: [1, 0], //Big

@@ -81,6 +81,7 @@ function petStats() {
     if (game.player.unlocks >= petButtons[1].unlock) {result += "Nature crate: " + wholeNumberShort(countPets(5, 10)) + "/6<br>"}
     if (game.player.unlocks >= petButtons[2].unlock) {result += "Earth crate: " + wholeNumberShort(countPets(11, 18)) + "/8<br>"}
     if (game.player.unlocks >= petButtons[3].unlock) {result += "Fire crate: " + wholeNumberShort(countPets(19, 26)) + "/8<br>"}
+    if (game.player.unlocks >= petButtons[4].unlock) {result += "Skeleton crate: " + wholeNumberShort(countPets(27, 34)) + "/8<br>"}
     result += "TOTAL: " + wholeNumberShort(countPets(1, pets.length - 1)) + "/" + wholeNumberShort(pets.length - 1) + "<br><br>"
     return result
 }
