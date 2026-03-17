@@ -178,8 +178,25 @@ img {
     transition: background-color 300ms ease-out, color 300ms ease-out, border 300ms ease-out;
 }
 
+.tabButton {
+    min-width: 4vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    border-radius: 2vh;
+    font-family: Verdana, sans-serif;
+    font-size: 2vh;
+    transition: background-color 300ms ease-out, color 300ms ease-out, border 300ms ease-out;
+}
+
 /* flickering animation is defined in each theme css file */
 .button.flickering {
+    animation-name: flickering;
+    animation-iteration-count: infinite;
+    animation-duration: 300ms;
+    animation-direction: alternate;
+}
+
+.tabButton.flickering {
     animation-name: flickering;
     animation-iteration-count: infinite;
     animation-duration: 300ms;
@@ -191,6 +208,14 @@ img {
 }
 
 .button:disabled {
+    cursor: default;
+}
+
+.tabButton:hover {
+    cursor: pointer;
+}
+
+.tabButton:disabled {
     cursor: default;
 }
 

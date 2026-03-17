@@ -8,6 +8,12 @@ body {
   color: #0ff;
 }
 
+.tabButton {
+  background-color: #111;
+  border: 0.3vh solid #0ff;
+  color: #0ff;
+}
+
 @keyframes flickering {
   from {border-color: #0ff;}
   to {border-color: #77f;}

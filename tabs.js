@@ -28,11 +28,11 @@ const otherFunniesDisplay = [
 ]
 
 function tab(x) {
-    game.player.currentTab = [x, 0]
+    game.player.tabDropdown = x
 }
 
 function subtab(x) {
-    game.player.currentTab[1] = x
+    game.player.currentTab = x
 }
 
 function displayTabContent() {
@@ -55,7 +55,7 @@ function displayTabContent() {
         document.getElementById("tokenButton0").style.display = "block" 
         document.getElementById("petRarities").innerHTML = ""
     }
-    else { document.getElementById("tokenButton0").style.display = "none" }
+    else { document.getElementById("tokenButton0").style.display = "none" } //This is the check for every token upgrade
     for (i = 1; i < tokenUpgrades.length; i++) {
         if (tokenUpgradeAvailable(i) && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) { document.getElementById(tokenUpgrades[i].name).style.display = "block" }
         else { document.getElementById(tokenUpgrades[i].name).style.display = "none" }
@@ -64,7 +64,7 @@ function displayTabContent() {
 setInterval(displayTabContent, 50)
 
 function displayTabButtons() {
-    for (i = 0; i < mainTabs.length; i++) {
+    for (let i = 0; i < mainTabs.length; i++) {
         if (game.player.unlocks >= mainTabs[i].unlock) { document.getElementById(mainTabs[i].name).style.display = "block" }
         else { document.getElementById(mainTabs[i].name).style.display = "none" }
     }
@@ -72,16 +72,16 @@ function displayTabButtons() {
 setInterval(displayTabButtons, 50)
 
 function displayInventoryButtons() {
-    for (i = 0; i < inventorySubTab.length; i++) {
-        if (game.player.unlocks >= inventorySubTab[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([1, 0])) { document.getElementById(inventorySubTab[i].name).style.display = "block" }
+    for (let i = 0; i < inventorySubTab.length; i++) {
+        if (game.player.unlocks >= inventorySubTab[i].unlock && game.player.tabDropdown == 1) { document.getElementById(inventorySubTab[i].name).style.display = "block" }
         else { document.getElementById(inventorySubTab[i].name).style.display = "none" }
     }
 }
 setInterval(displayInventoryButtons, 50)
 
 function displayMainButtons() {
-    for (i = 0; i < mainSubTab.length; i++) {
-        if (game.player.unlocks >= mainSubTab[i].unlock && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 0])) { document.getElementById(mainSubTab[i].name).style.display = "block" }
+    for (let i = 0; i < mainSubTab.length; i++) {
+        if (game.player.unlocks >= mainSubTab[i].unlock && game.player.tabDropdown == 2) { document.getElementById(mainSubTab[i].name).style.display = "block" }
         else { document.getElementById(mainSubTab[i].name).style.display = "none" }
     }
     if (game.player.permanentUnlocks >= 1) { document.getElementById("dailyButton").style.display = "block" }
@@ -90,9 +90,45 @@ function displayMainButtons() {
 setInterval(displayMainButtons, 50)
 
 function displayFunnies() { //This is for stuff like selected pet text
-    for (i = 0; i < otherFunniesDisplay.length; i++) {
+    for (let i = 0; i < otherFunniesDisplay.length; i++) {
         if (game.player.unlocks >= otherFunniesDisplay[i].unlock) { document.getElementById(otherFunniesDisplay[i].name).style.display = "block" }
         else { document.getElementById(otherFunniesDisplay[i].name).style.display = "none" }
     }
 }
 setInterval(displayFunnies, 50)
+
+function XPTab() {
+    let flicker = false
+    let i = 0
+    while (i < XPButtons.length && flicker == false) {
+        if (game.player.unlocks >= XPButtons[i].unlock && game.xp.buttonCooldowns[i] == 0) {
+            flicker = true
+        }
+        i++
+    }
+    return flicker
+}
+
+function CrateTab() {
+    let flicker = false
+    let i = 0
+    while (i < petButtons.length && flicker == false) {
+        if (game.player.unlocks >= petButtons[i].unlock && game.pets.buttonCooldowns[i] == 0) {
+            flicker = true
+        }
+        i++
+    }
+    return flicker
+}
+
+function XPBoostTab() {
+    let flicker = false
+    let i = 0
+    while (i < XPBoostButtons.length && flicker == false) {
+        if (game.player.unlocks >= XPBoostButtons[i].unlock && game.xpBoost.buttonCooldowns[i] == 0) {
+            flicker = true
+        }
+        i++
+    }
+    return flicker
+}

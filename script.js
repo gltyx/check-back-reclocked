@@ -54,7 +54,8 @@ function reset() {
             timeOfLastUpdate: Date.now(), //Normal
             sessionStart: Date.now(), //Normal
             speed: 1, //Normal
-            currentTab: [2, 1], //Normal
+            currentTab: [2, 1], //Dropdown
+            tabDropdown: 2, //Normal
             timePlayed: 0, //Normal
             buttonClicks: 0, //Normal
             cratesOpened: 0, //Normal
@@ -217,6 +218,36 @@ function updateSmall() { //This part checks if buttons are available or not, add
             if (game.tokens.amount >= (tokenUpgrades[i].baseCost * (tokenUpgrades[i].costScaling ** game.tokens.upgrades[i]))) {document.getElementById(tokenUpgrades[i].name).disabled = false}
             else {document.getElementById(tokenUpgrades[i].name).disabled = true}
         }
+    }
+    let mainFlicker = false
+    if (XPTab()) {
+        document.getElementById("XPTab").classList.add("flickering")
+        mainFlicker = true
+    }
+    else {
+        document.getElementById("XPTab").classList.remove("flickering")
+    }
+    //Do this for the other 4 tabs
+    if (CrateTab()) {
+        document.getElementById("CratesTab").classList.add("flickering")
+        mainFlicker = true
+    }
+    else {
+        document.getElementById("CratesTab").classList.remove("flickering")
+    }
+    if (XPBoostTab()) {
+        document.getElementById("XPBTab").classList.add("flickering")
+        mainFlicker = true
+    }
+    else {
+        document.getElementById("XPBTab").classList.remove("flickering")
+    }
+
+    if (mainFlicker == true) {
+        document.getElementById("MainTab").classList.add("flickering")
+    }
+    else {
+        document.getElementById("MainTab").classList.remove("flickering")
     }
     if (compareBig(game.xp.amount, levelToXP(game.xp.levelCap))) { game.xp.amount = levelToXP(game.xp.levelCap) } //If the xp you have is higher than whatever xp is needed for cap, then your xp gets set to the corresponding xp to the cap
     game.xp.level = XPToLevel([Math.max(game.xp.amount[0], 0), game.xp.amount[1]])
@@ -404,4 +435,24 @@ onDomReady(function () {
             if (document.getElementById("statsDiv").style.display == "block") { openCloseStatsTab() }
         }
     });
+});
+
+// Syncing animations
+document.addEventListener("animationstart", (event) => {
+  if (event.animationName === "flickering") {
+    let animationCurrentTime;
+    let anims = document.getAnimations();
+    for (let i = 0; i < anims.length; i++) {
+      if (anims[i].animationName === event.animationName) {
+        animationCurrentTime = anims[i].currentTime;
+        break;
+      }
+    }
+
+    for (let i = 0; i < anims.length; i++) {
+      if (anims[i].animationName === event.animationName) {
+        if (animationCurrentTime) anims[i].currentTime = animationCurrentTime;
+      }
+    }
+  }
 });
