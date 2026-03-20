@@ -81,6 +81,7 @@ function petBonus(x) {
     result = ""
     if (!!pets[x].xpMulti) result += "x" + numberShort(pets[x].xpMulti) + " XP<br>"
     if (!!pets[x].xpCooldown) result += "/" + numberShort(pets[x].xpCooldown) + " XP Cooldowns<br>"
+    if (!!pets[x].tokenMulti) result += "x" + numberShort(pets[x].tokenMulti) + " Tokens<br>"
     return result
 }
 

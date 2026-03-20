@@ -1,4 +1,4 @@
-const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 5000, 1000000000] //This will probably be remade completely
+const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 5000, 15000, 30000, 50000, 1000000000] //This will probably be remade completely
 const unlockLevelsBig = [12, 15, 18, 21, 24, 27, 30, 100, 1000000000]
 const permanentUnlockLevels = [50, 100000000]
 const permanentUnlocks = [10, 100000]
@@ -119,12 +119,12 @@ const pets = [
     { name: "Fire Dragon", xpMulti: 100, xpCooldown: 1.4, specialText: "He's so powerful that has to be nerfed by leaving a path of ashes whenever he goes" }, //26
     { name: "Small Skeleton", xpMulti: 50, xpCooldown: 1.3, specialText: "Poor child" }, //27
     { name: "Skeletal Dog", xpMulti: 75, xpCooldown: 1.4, specialText: "Skulls are a mix of tennis balls and bones. 2 in 1" }, //28
-    { name: "Normal Skeleton", xpMulti: 110, xpCooldown: 1.5, specialText: "What do you mean normal? You ra-" }, //29
-    { name: "Skeletal Snake", xpMulti: 150, xpCooldown: 1.6, specialText: "Wait, snakes do not have bones. This is fake" }, //30
-    { name: "Skeletal Vulture", xpMulti: 200, xpCooldown: 1.7, specialText: "He got an F in aerodynamics" }, //31
-    { name: "Skeletal Hound", xpMulti: 275, xpCooldown: 1.8, specialText: "Don't call it a dog or you'll see the difference" }, //32
-    { name: "Skeletal Hydra", xpMulti: 350, xpCooldown: 1.9, specialText: "Each head makes a different bone creak tune" }, //33
-    { name: "Skeletal Dragon", xpMulti: 500, xpCooldown: 2, specialText: "He will come back in Avengers: Doomsday" }, //34
+    { name: "Normal Skeleton", xpMulti: 110, xpCooldown: 1.5, tokenMulti: 1.3, specialText: "What do you mean normal? You ra-" }, //29
+    { name: "Skeletal Snake", xpMulti: 150, xpCooldown: 1.6, tokenMulti: 1.6, specialText: "Wait, snakes do not have bones. This is fake" }, //30
+    { name: "Skeletal Vulture", xpMulti: 200, xpCooldown: 1.7, tokenMulti: 1.9, specialText: "He got an F in aerodynamics" }, //31
+    { name: "Skeletal Hound", xpMulti: 275, xpCooldown: 1.8, tokenMulti: 2.2, specialText: "Don't call it a dog or you'll see the difference" }, //32
+    { name: "Skeletal Hydra", xpMulti: 350, xpCooldown: 1.9, tokenMulti: 2.5, specialText: "Each head makes a different bone creak tune" }, //33
+    { name: "Skeletal Dragon", xpMulti: 500, xpCooldown: 2, tokenMulti: 3, specialText: "He will come back in Avengers: Doomsday" }, //34
 ]
 
 const basicUnboxChances = [
@@ -156,7 +156,7 @@ const stats = [
     { name: "Crate multipliers", unlock: 5 },
 ]
 
-const tokenUpgrades = [ //Name, base upgrade cost (Big), cost scaling (Big, 1 = linear), total levels, effect text
+const tokenUpgrades = [ //Name, base upgrade cost, cost scaling, total levels, effect text
     {name: "test", baseCost: 1, costScaling: 1, levels: 10, unlock: 18, reqs: 0, recList: [0], effect: "hello code reader"},
     {name: "tokenUpgrade1", baseCost: 1, costScaling: 1, levels: 10, unlock: 18, reqs: 0, recList: [0], effect: "+0.1x XP per level"},
     {name: "tokenUpgrade2", baseCost: 1, costScaling: 5, levels: 2, unlock: 18, reqs: 0, recList: [0], effect: "+/0.05 XP cooldowns per level"},
@@ -165,4 +165,6 @@ const tokenUpgrades = [ //Name, base upgrade cost (Big), cost scaling (Big, 1 = 
     {name: "tokenUpgrade5", baseCost: 5, costScaling: 1, levels: 10, unlock: 19, reqs: 1, recList: [1], effect: "+0.25x XP per level"},
     {name: "tokenUpgrade6", baseCost: 5, costScaling: 2, levels: 5, unlock: 20, reqs: 1, recList: [3], effect: "+0.25x XPBoost per level"},
     {name: "tokenUpgrade7", baseCost: 10, costScaling: 5, levels: 2, unlock: 21, reqs: 0, recList: [0], effect: "+0.1x Crate luck per level"},
+    {name: "tokenUpgrade8", baseCost: 50, costScaling: 1, levels: 1, unlock: 22, reqs: 1, recList: [4], effect: "If (Bank >= 5), x(1 + ln(ticks)) Tokens"},
+    {name: "tokenUpgrade9", baseCost: 25, costScaling: 2, levels: 4, unlock: 22, reqs: 1, recList: [5], effect: "+1x XP per level"},
 ]

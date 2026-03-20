@@ -212,7 +212,7 @@ function updateSmall() { //This part checks if buttons are available or not, add
     if (JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) {
         if (game.tokens.bankAmount >= 1) { document.getElementById("tokenButton0").disabled = false }
         else { document.getElementById("tokenButton0").disabled = true }
-        document.getElementById("tokenButton0").innerHTML = "Tokens: " + numberShort(game.tokens.amount) + "<br>Ticks: " + numberShort(game.tokens.ticks) + "; Next gain: " + numberShort(game.tokens.gain) + "<br>Bank amount: " + numberShort(game.tokens.bankAmount) + " (Click to collect)<br>Next auto tick: " + numberToTime((1200 - game.tokens.autoTicks)/20)
+        document.getElementById("tokenButton0").innerHTML = "Tokens: " + numberShort(game.tokens.amount) + "<br>Ticks: " + numberShort(game.tokens.ticks) + "; Next gain: " + numberShort(game.tokens.gain) + "<br>Bank amount: " + numberShort(game.tokens.bankAmount) + " (Click to collect)<br>Average gain: " + numberShort(game.tokens.bankAmount / Math.max(1, game.tokens.ticks)) + "<br>Next auto tick: " + numberToTime((1200 - game.tokens.autoTicks)/20)
         for (let i = 1; i < tokenUpgrades.length; i++) {
             document.getElementById(tokenUpgrades[i].name).innerHTML = "Level " +  wholeNumberShort(game.tokens.upgrades[i]) + "/" + wholeNumberShort(tokenUpgrades[i].levels) + ". Effect: " + tokenUpgrades[i].effect + "<br>Cost: " + showTokenCost(i)
             if (game.tokens.amount >= (tokenUpgrades[i].baseCost * (tokenUpgrades[i].costScaling ** game.tokens.upgrades[i]))) {document.getElementById(tokenUpgrades[i].name).disabled = false}
@@ -272,13 +272,19 @@ function updateSmall() { //This part checks if buttons are available or not, add
         }
         document.getElementById("rank").innerHTML = "Clicking to make this work (Ranks are WIP)"
         //Sets the "XP to next level" text
-        if (compareBig([1, 100], game.xp.level)) { //Single "XP to next level" in xp bar, up to level 1e100
+        if (compareBig([5, 2], game.xp.level)) { //Single "XP to next level" in xp bar, up to level 500
             XPToNextLevel = substractBig(levelToXP(addBig(game.xp.level, 1)), levelToXP(game.xp.level)) //XP to next level = levelToXP(level + 1) - levelToXP(level) //substractBig(levelToXP(addBig(game.xp.level, 1)), levelToXP(game.xp.level))
             ProgressToNextLevel = substractBig(game.xp.amount, levelToXP(game.xp.level))
             document.getElementById("XPBarText").innerHTML = "XP to next level: " + numberShort(convertToNormal(ProgressToNextLevel)) + "/" + numberShort(convertToNormal(XPToNextLevel))
             document.getElementById("XPBarBack").style.width = (convertToNormal(ProgressToNextLevel) / convertToNormal(XPToNextLevel) * 100) + "%"
         }
-        else {
+        else if (game.player.unlocks < unlockLevelsSmall.length) {
+            XPToNextUnlock = substractBig(levelToXP(unlockLevelsSmall[game.player.unlocks]), levelToXP(unlockLevelsSmall[game.player.unlocks - 1])) //XP to next level = levelToXP(level + 1) - levelToXP(level) //substractBig(levelToXP(addBig(game.xp.level, 1)), levelToXP(game.xp.level))
+            ProgressToNextUnlock = substractBig(game.xp.amount, levelToXP(unlockLevelsSmall[game.player.unlocks - 1]))
+            document.getElementById("XPBarText").innerHTML = "XP to next unlock: " + numberShort(convertToNormal(ProgressToNextUnlock)) + "/" + numberShort(convertToNormal(XPToNextUnlock))
+            document.getElementById("XPBarBack").style.width = (convertToNormal(ProgressToNextUnlock) / convertToNormal(XPToNextUnlock) * 100) + "%"
+        } //xp to next unlock
+        else { //xp to next x10
             levelExpo = game.xp.level[1]
             XPToNextOoM = substractBig(levelToXP([1, levelExpo + 1]), levelToXP([1, levelExpo]))
             ProgressToNextOoM = substractBig(game.xp.amount, levelToXP([1, levelExpo]))

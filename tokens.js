@@ -22,7 +22,9 @@ function addTicks(x) {
 function calculateTokenGain() {
     let baseAmount = 0.1
     baseAmount *= game.tokenBonuses.tokens
+    if (!!pets[game.pets.equipped].tokenMulti) {baseAmount *= pets[game.pets.equipped].tokenMulti}
     if (game.tokens.bankAmount > 1) {baseAmount = (baseAmount/game.tokens.bankAmount)}
+    if (game.tokens.bankAmount >= 5 && game.tokens.upgrades[8] > 0) {baseAmount *= (1 + Math.log(game.tokens.ticks))}
     game.tokens.gain = baseAmount
 }
 setInterval(calculateTokenGain, 50) //Runs 20 times a sec
@@ -95,6 +97,7 @@ function calculateTokenUpgradeBoosts() {
     let baseXP = [1, 0]
     baseXP = multiplyBig(baseXP, 1 + 0.1 * game.tokens.upgrades[1])
     baseXP = multiplyBig(baseXP, 1 + 0.25 * game.tokens.upgrades[5])
+    baseXP = multiplyBig(baseXP, 1 + game.tokens.upgrades[9])
     game.tokenBonuses.xp = baseXP
     let baseXPcooldown = 1
     baseXPcooldown *= (1 + 0.05 * game.tokens.upgrades[2])
