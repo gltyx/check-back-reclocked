@@ -1,7 +1,5 @@
-const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 5000, 15000, 30000, 50000, 1000000000] //This will probably be remade completely
-const unlockLevelsBig = [12, 15, 18, 21, 24, 27, 30, 100, 1000000000]
-const permanentUnlockLevels = [50, 100000000]
-const permanentUnlocks = [10, 100000]
+const unlockLevelsSmall = [2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 100, 150, 200, 250, 300, 400, 500, 1000, 2000, 5000, 15000, 30000, 50000] //This will probably be remade completely
+//const unlockLevelsBig = [1000000000]
 const levelBarTextures = [50, 55, 60, 65, 70, 80, 90, 100, 200]
 
 const levelBarColours = [
@@ -36,61 +34,20 @@ const levelBarColours = [
 ]
 
 const ranks = [ //This will probably be remade for there to be less names but more "number like" scaling with potential even exponential step-to-step
-    [1, "Beginner", 1],
-    [2, "Basic", 1],
-    [3, "Unremarkable", 1],
-    [4, "Mediocre", 1],
-    [5, "Average", 1],
-    [6, "Decent", 1],
-    [8, "Competent", 1],
-    [10, "Proficient", 1],
-    [12, "Skilled", 1],
-    [14, "Talented", 1],
-    [16, "Expert", 1],
-    [18, "Exceptional", 1],
-    [20, "Brilliant", 1],
-    [25, "Extraordinary", 1],
-    [30, "Renowned", 1],
-    [35, "Unmatched", 1],
-    [40, "Superior", 1],
-    [45, "Legendary", 1],
-    [50, "Mythical", 1],
-    [55, "Insane", 1],
-    [60, "Supreme", 1],
-    [65, "Godly", 1],
-    [70, "Universal", 1],
-    [75, "Multiversal", 1],
-    [80, "Omniversal", 1],
-    [90, "Hyperdimensional", 1], //Rank 25, after this, every rank gets a number every x levels up to the number commented next to it.
-    [100, "Transcendent", 10], //10
-    [200, "Infinite", 10], //10
-    [300, "Beyond infinite", 10], //10
-    [400, "Endless", 10], //10
-    [500, "Void", 80], //25
-    [2500, "Extensive", 300], //25
-    [10000, "Dedicated", 800], //50
-    [50000, "Loot", 3000], //50
-    [200000, "Magic", 16000], //50
-    [1000000, "Troll", 80000], //50
-    [5000000, "Insanity", 100000], //50
-    [10000000, "Time", 400000], //75
-    [40000000, "Space", 800000], //75
-    [100000000, "Finality", 4000000], //75
-    [400000000, "placeholder", 8000000] //75
-    [10 ** 9, "Alpha", 9 * 10 ** 7], //100
-    [10 ** 10, "Beta", 9 * 10 ** 8], //100
-    [10 ** 11, "Chi", 9 * 10 ** 9], //100
-    [10 ** 12, "Delta", 3.996 * 10 ** 12], //250
-    [10 ** 15, "Epsilon", 3.996 * 10 ** 15], //250
-    [10 ** 18, "Fabled", 3.996 * 10 ** 18], //250
-    [10 ** 21, "Impossibly dedicated", 10 ** 21],
-    [10 ** 100, "Impossibly dedicated squared", 10 ** 100],
-    [Infinity, "Error", 1],
+    {level: [1, 0], name: "Apprentice"},
+    {level: [5, 0], name: "Beginner"},
+    {level: [1, 1], name: "Challenger"},
+    {level: [1, 2], name: "Dedicated"},
+    {level: [1, 3], name: "Exalted"},
+    {level: [1, 4], name: "Fabled"},
+    {level: [1, 5], name: "Great"},
+    {level: [1.1, 5], name: "Hacker"},
+    {level: [Infinity, Infinity], name: "Infinity"},
 ] //space and finality, omega
 
 const pets = [
     //Name, XP multiplier, Funny special text.
-    { name: "Test", xpMulti: 1, specialText: "Hey, how did you find me? (Placeholder)" }, //0
+    { name: "Test", specialText: "Hey, how did you find me? (Placeholder)" }, //0
     { name: "Slug", xpMulti: 1.2, specialText: "A snail that lost its shell and has to live underneath a bridge... for now.<br>(Most textures like this have been taken from a project called Dungeon Crawl, check it out)" }, // 1
     { name: "Rat", xpMulti: 1.4, specialText: "A rat forced to eat trash to survive. It'd love to eat a fresh lug anyday." }, // 2
     { name: "Snake", xpMulti: 1.6, specialText: "A snake living in barren wastes, looking for any juicy rat to eat." }, // 3
@@ -154,6 +111,8 @@ const stats = [
     { name: "Credits", unlock: 0 },
     { name: "XP Multipliers", unlock: 0 },
     { name: "Crate multipliers", unlock: 5 },
+    { name: "XPBoost", unlock: 12},
+    { name: "Tokens", unlock: 18},
 ]
 
 const tokenUpgrades = [ //Name, base upgrade cost, cost scaling, total levels, effect text
@@ -167,4 +126,5 @@ const tokenUpgrades = [ //Name, base upgrade cost, cost scaling, total levels, e
     {name: "tokenUpgrade7", baseCost: 10, costScaling: 5, levels: 2, unlock: 21, reqs: 0, recList: [0], effect: "+0.1x Crate luck per level"},
     {name: "tokenUpgrade8", baseCost: 50, costScaling: 1, levels: 1, unlock: 22, reqs: 1, recList: [4], effect: "If (Bank >= 5), x(1 + ln(ticks)) Tokens"},
     {name: "tokenUpgrade9", baseCost: 25, costScaling: 2, levels: 4, unlock: 22, reqs: 1, recList: [5], effect: "+1x XP per level"},
+    {name: "tokenUpgrade10", baseCost: 50, costScaling: 4, levels: 2, unlock: 23, reqs: 2, recList: [6, 7], effect: "+0.75x XPBoost, +0.1x Luck per level"},
 ]

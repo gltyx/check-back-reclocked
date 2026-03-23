@@ -8,6 +8,12 @@ body {
   color: #fff;
 }
 
+.tabButton {
+  background-color: #96a;
+  border: 0.3vh solid #929;
+  color: #fff;
+}
+
 @keyframes flickering {
   from {border-color: #929;}
   to {border-color: #e2a8e2;}
@@ -21,10 +27,4 @@ body {
 
 #nextUnlockLevel, #selectedPetText, #themeText, #versionText, #XPBoostDisplay, #ItemBoostDisplay {
   color: #c9d;
-}
-
-.tabButton {
-  background-color: #96a;
-  border: 0.3vh solid #929;
-  color: #fff;
 }

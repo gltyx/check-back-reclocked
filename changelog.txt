@@ -1,7 +1,11 @@
-Check Back Reclocked Changelog
+Check Back Reclocked Changelog (dd/mm/yy for americans)
+------------------------------
 
-Alpha: (Date of release)
--New code changes
--Content up to level (to be defined)
--Faster pacing compared to original check back mod
--Some feature changes, new/old pets added
+
+Version 1: Alpha release (28/03/26)
+-Entirety of the code has been remade, and there's now a custom number library that allows numbers to go up to 1e1.8e308 (Not all of them use this library)
+-Pacing of the game should be much better compared to the original check back
+-Features like pets have had slight tweaks (including new pets and a completely new pet order), where others like the shop are completely new (no more absurd pet requirements... for now)
+-Tab system has been improved, but there is still a chance a full on remake can be made in the future to match "other views"
+-Current endgame: Level 100k
+-Removed herobrine

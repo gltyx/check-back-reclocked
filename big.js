@@ -146,7 +146,7 @@ function displayRoundBig(a) { //Basically will format a = [m, n] into proper num
     }
 }
 
-function compareBig(a, b) { //Checks if a number [a0, a1] is bigger than [b0, b1]
+function compareBig(a, b) { //Checks if a number [a0, a1] is bigger than [b0, b1], == returns false
     if (a.length == 2 && b.length == 2) {
         if (a[1] > b[1]) { return true } //exponent b is bigger than exponent d, like 1e10 > 1e8
         else if (a[0] > b[0] && a[1] == b[1]) { return true } //in case of same exponent, a is bigger than c, so like 2e10 > 1.5e10
@@ -160,6 +160,23 @@ function compareBig(a, b) { //Checks if a number [a0, a1] is bigger than [b0, b1
         if (typeof b === 'number' && !isNaN(b)) { secondNumber = convertToBig(b) }
         else if (b.length == 2) secondNumber = b
         return compareBig(firstNumber, secondNumber)
+    }
+}
+
+function compareBigEqual(a, b) { //Checks if a number [a0, a1] is bigger than [b0, b1], == returns true
+    if (a.length == 2 && b.length == 2) {
+        if (a[1] > b[1]) { return true } //exponent b is bigger than exponent d, like 1e10 > 1e8
+        else if (a[0] >= b[0] && a[1] == b[1]) { return true } //in case of same exponent, a is bigger than c, so like 2e10 > 1.5e10
+        else return false //it's false
+    }
+    else {
+        let firstNumber = 0
+        let secondNumber = 0
+        if (typeof a === 'number' && !isNaN(a)) { firstNumber = convertToBig(a) }
+        else if (a.length == 2) firstNumber = a
+        if (typeof b === 'number' && !isNaN(b)) { secondNumber = convertToBig(b) }
+        else if (b.length == 2) secondNumber = b
+        return compareBigEqual(firstNumber, secondNumber)
     }
 }
 

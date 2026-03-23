@@ -34,10 +34,10 @@
                 <button class="tabButton" id="petsInventory" style="display: none" onclick="openClosePetsTab()">Pets</button>
 
             <button class="button" id="MainTab" style="display: none" onclick="tab(2)">MAIN BUTTONS</button>
-                <button class="tabButton" id="XPTab" style="display: none" onclick="subtab([2, 1])">XP Buttons</button>
-                <button class="tabButton" id="CratesTab" style="display: none" onclick="subtab([2, 2])">Pet Crates</button>
-                <button class="tabButton" id="XPBTab" style="display: none" onclick="subtab([2, 3])">XPBoost Buttons</button>
-                <button class="tabButton" id="TokenTab" style="display: none" onclick="subtab([2, 4])">Token Buttons</button>
+                <button class="tabButton" id="XPTab" style="display: none" onclick="subtab([2, 1])"> · XP Buttons</button>
+                <button class="tabButton" id="CratesTab" style="display: none" onclick="subtab([2, 2])"> · Pet Crates</button>
+                <button class="tabButton" id="XPBTab" style="display: none" onclick="subtab([2, 3])"> · XPBoost Buttons</button>
+                <button class="tabButton" id="TokenTab" style="display: none" onclick="subtab([2, 4])"> · Token Buttons</button>
         </div>
 
         <div id="buttonsContainer">
@@ -77,6 +77,7 @@
             <button class="button" id="tokenUpgrade7" style="display: none" onclick="buyTokenUpgrade(7)">Upgrade 7</button>
             <button class="button" id="tokenUpgrade8" style="display: none" onclick="buyTokenUpgrade(8)">Upgrade 8</button>
             <button class="button" id="tokenUpgrade9" style="display: none" onclick="buyTokenUpgrade(9)">Upgrade 9</button>
+            <button class="button" id="tokenUpgrade10" style="display: none" onclick="buyTokenUpgrade(10)">Upgrade 10</button>
         </div>
 
         <div id="infosContainer">
@@ -90,29 +91,20 @@
         <div id="leftFooterColumn">
             <div id="themeDiv">
                 <p id="themeText" style="font-size: 1.5vh; margin: 0.3vh">Theme:</p>
-                <button class="themeButton" style="background-color: #c8c0b8; border: 0.3vh solid #444; color: #444"style="display: none"
-                    onclick="changeTheme(1)">Light</button>
-                <button class="themeButton" style="background-color: #333; border: 0.3vh solid #bbb; color: #bbb"style="display: none"
-                    onclick="changeTheme(2)">Dark</button>
-                <button class="themeButton" style="background-color: black; border: 0.3vh solid #0ff; color: #0ff"style="display: none"
-                    onclick="changeTheme(3)">Neon</button>
-                <button class="themeButton" style="background-color: #496; border: 0.3vh solid #242; color: #242"style="display: none"
-                    onclick="changeTheme(4)">Green</button>
-                <button class="themeButton" style="background-color: #96a; border: 0.3vh solid #424; color: #424"style="display: none"
-                    onclick="changeTheme(5)">Purple</button>
-                <button class="themeButton" style="background-color: #d75; border: 0.3vh solid #422; color: #422"style="display: none"
-                    onclick="changeTheme(6)">Red</button>
-                <button class="themeButton"
-                    style="background-color: rgb(204, 0, 255); border: 0.3vh solid rgb(255, 196, 0); color: #422;"style="display: none"
-                    onclick="changeTheme(7)">Dimensional</button>
+                <button class="themeButton" style="background-color: #c8c0b8; border: 0.3vh solid #444; color: #444"onclick="changeTheme(1)">Light</button>
+                <button class="themeButton" style="background-color: #333; border: 0.3vh solid #bbb; color: #bbb"onclick="changeTheme(2)">Dark</button>
+                <button class="themeButton" style="background-color: black; border: 0.3vh solid #0ff; color: #0ff"onclick="changeTheme(3)">Neon</button>
+                <button class="themeButton" style="background-color: #496; border: 0.3vh solid #242; color: #242"onclick="changeTheme(4)">Green</button>
+                <button class="themeButton" style="background-color: #96a; border: 0.3vh solid #424; color: #424" onclick="changeTheme(5)">Purple</button>
+                <button class="themeButton" style="background-color: #d75; border: 0.3vh solid #422; color: #422" onclick="changeTheme(6)">Red</button>
             </div>
 
-            <button class="button" id="dailyButton" onclick="openCloseDailyTab()">Daily rewards</button>
+            <button class="button" id="dailyButton" style="display: none" onclick="openCloseDailyTab()">Daily rewards</button>
         </div>
 
         <div id="rightFooterColumn">
             <p id="versionText">Check Back Reclocked <a
-                    href="https://github.com/MarcElAcoplao/CheckBackMod/blob/main/changelog.txt"
+                    href="https://github.com/MarcElAcoplao/CheckBackReclocked/blob/main/changelog.txt"
                     target="_blank">Alpha</a> (Creator: MarcElAcoplao, <a href="https://discord.gg/YaSk8e2wFt"
                     target="_blank">Discord</a>)
             </p>

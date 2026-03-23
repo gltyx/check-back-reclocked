@@ -105,12 +105,14 @@ function calculateTokenUpgradeBoosts() {
     let baseXPBoost = [1, 0]
     baseXPBoost = multiplyBig(baseXPBoost, 1 + 0.1 * game.tokens.upgrades[3])
     baseXPBoost = multiplyBig(baseXPBoost, 1 + 0.25 * game.tokens.upgrades[6])
+    baseXPBoost = multiplyBig(baseXPBoost, 1 + 0.75 * game.tokens.upgrades[10])
     game.tokenBonuses.xpBoost = baseXPBoost
     let baseTokens = 1
     baseTokens *= (1 + 0.25 * game.tokens.upgrades[4])
     game.tokenBonuses.tokens = baseTokens
     let baseLuck = 1
     baseLuck *= (1 + 0.1 * game.tokens.upgrades[4])
+    baseLuck *= (1 + 0.1 * game.tokens.upgrades[10])
     game.tokenBonuses.luck = baseLuck
 }
 setInterval(calculateTokenUpgradeBoosts, 50)

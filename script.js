@@ -8,13 +8,14 @@ function reset() {
             multiplier: [1, 0], //Big
             cooldown: 1, //Normal
             buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //List of normals
-            levelCap: [1, 6], //Big
+            levelCap: [1, 5], //Big
+            lostXP: [0, 0] //Big
         },
         pets: {
             amount: [0, 0, 0], //List of normals with many entries
             multiplier: 1, //Normal
             cooldown: 1, //Normal
-            buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0], //List of normals
+            buttonCooldowns: [0, 0, 0, 0], //List of normals
             discoveredTotal: 0, //Normal
             individualDiscovered: [0, 0, 0], //List of normals with many entries
             equipped: 0, //Normal
@@ -25,7 +26,7 @@ function reset() {
             amount: [1, 0], //Big
             multiplier: [1, 0], //Big
             cooldown: 1, //Normal
-            buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //List of normals
+            buttonCooldowns: [0, 0, 0, 0, 0], //List of normals
             effectExpo: [1, 0], //Big, could work as normal
             effectiveBoost: [1, 0],
         },
@@ -49,7 +50,6 @@ function reset() {
             highestLevel: [1, 0], //Big
             ranks: 0, //Normal
             unlocks: 0, //Normal
-            permanentUnlocks: 0, //Normal
             currentTheme: 2, //Normal
             timeOfLastUpdate: Date.now(), //Normal
             sessionStart: Date.now(), //Normal
@@ -151,6 +151,9 @@ function loadGame(loadgame) {
         if (dataBackup !== null) localStorage.setItem("checkBack2Save", dataBackup); //change to "checkBackRelockedSave" when release coming up
         window.alert(`Save Data Issues!\n${err}`); //whatever you want to say here
     }
+}
+
+function updateStuffOnLoad() {
     //Updates arrays of things like pets so that any new existing slot is 0 instead of undefined [where undefined + 1 = NaN]
     if (!game.pets.individualDiscovered) { game.pets.individualDiscovered = [0] }
     for (i = 0; i < pets.length; i++) {
@@ -159,9 +162,10 @@ function loadGame(loadgame) {
         if (game.pets.amount[i] >= 1 && game.pets.individualDiscovered[i] == 0) { game.pets.individualDiscovered[i] = 1 }
     }
     for (i = 0; i < tokenUpgrades.length; i++) {
-        if (!game.tokens.upgrades[i]) {game.tokens.upgrades[i] = 0}
+        if (!game.tokens.upgrades[i]) { game.tokens.upgrades[i] = 0 }
     }
 }
+updateStuffOnLoad()
 
 function updateSmall() { //This part checks if buttons are available or not, adds the flickering for tabs (to show a button is ready to use) and does a lot of number updates
     if (game.pets.equipped == 0) {
@@ -212,11 +216,11 @@ function updateSmall() { //This part checks if buttons are available or not, add
     if (JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) {
         if (game.tokens.bankAmount >= 1) { document.getElementById("tokenButton0").disabled = false }
         else { document.getElementById("tokenButton0").disabled = true }
-        document.getElementById("tokenButton0").innerHTML = "Tokens: " + numberShort(game.tokens.amount) + "<br>Ticks: " + numberShort(game.tokens.ticks) + "; Next gain: " + numberShort(game.tokens.gain) + "<br>Bank amount: " + numberShort(game.tokens.bankAmount) + " (Click to collect)<br>Average gain: " + numberShort(game.tokens.bankAmount / Math.max(1, game.tokens.ticks)) + "<br>Next auto tick: " + numberToTime((1200 - game.tokens.autoTicks)/20)
+        document.getElementById("tokenButton0").innerHTML = "Tokens: " + numberShort(game.tokens.amount) + "<br>Ticks: " + numberShort(game.tokens.ticks) + "; Next gain: " + numberShort(game.tokens.gain) + "<br>Bank amount: " + numberShort(game.tokens.bankAmount) + " (Click to collect)<br>Average gain: " + numberShort(game.tokens.bankAmount / Math.max(1, game.tokens.ticks)) + "<br>Next auto tick: " + numberToTime((1200 - game.tokens.autoTicks) / 20)
         for (let i = 1; i < tokenUpgrades.length; i++) {
-            document.getElementById(tokenUpgrades[i].name).innerHTML = "Level " +  wholeNumberShort(game.tokens.upgrades[i]) + "/" + wholeNumberShort(tokenUpgrades[i].levels) + ". Effect: " + tokenUpgrades[i].effect + "<br>Cost: " + showTokenCost(i)
-            if (game.tokens.amount >= (tokenUpgrades[i].baseCost * (tokenUpgrades[i].costScaling ** game.tokens.upgrades[i]))) {document.getElementById(tokenUpgrades[i].name).disabled = false}
-            else {document.getElementById(tokenUpgrades[i].name).disabled = true}
+            document.getElementById(tokenUpgrades[i].name).innerHTML = "Level " + wholeNumberShort(game.tokens.upgrades[i]) + "/" + wholeNumberShort(tokenUpgrades[i].levels) + ". Effect: " + tokenUpgrades[i].effect + "<br>Cost: " + showTokenCost(i)
+            if (game.tokens.amount >= (tokenUpgrades[i].baseCost * (tokenUpgrades[i].costScaling ** game.tokens.upgrades[i]))) { document.getElementById(tokenUpgrades[i].name).disabled = false }
+            else { document.getElementById(tokenUpgrades[i].name).disabled = true }
         }
     }
     let mainFlicker = false
@@ -249,28 +253,35 @@ function updateSmall() { //This part checks if buttons are available or not, add
     else {
         document.getElementById("MainTab").classList.remove("flickering")
     }
-    if (compareBig(game.xp.amount, levelToXP(game.xp.levelCap))) { game.xp.amount = levelToXP(game.xp.levelCap) } //If the xp you have is higher than whatever xp is needed for cap, then your xp gets set to the corresponding xp to the cap
+    game.xp.levelCap = [1, 5] //If you edit this you're a real cheater
+    if (compareBigEqual(game.xp.amount, levelToXP(game.xp.levelCap))) {
+        game.xp.lostXP = addBig(game.xp.lostXP, substractBig(game.xp.amount, levelToXP(game.xp.levelCap)))
+        game.xp.amount = levelToXP(game.xp.levelCap)
+    } //If the xp you have is higher than whatever xp is needed for cap, then your xp gets set to the corresponding xp to the cap
     game.xp.level = XPToLevel([Math.max(game.xp.amount[0], 0), game.xp.amount[1]])
     if (compareBig(game.xp.level, game.player.highestLevel)) { game.player.highestLevel = game.xp.level } //If your current level is set to something higher than your recorded highest level, your highest level gets set to that level
     if (game.player.unlocks < unlockLevelsSmall.length) { document.getElementById("nextUnlockLevel").innerHTML = "You will unlock something new at level " + wholeNumberShort(unlockLevelsSmall[game.player.unlocks]) } //If player unlocks are still "inside" the small level unlocks, it displays that
-    else { document.getElementById("nextUnlockLevel").innerHTML = "You will unlock something new at level " + displayBig([1, unlockLevelsBig[game.player.unlocks - unlockLevelsSmall.length]]) } //Else if the player has gotten past that, it displays the level for the big level unlocks
+    else { document.getElementById("nextUnlockLevel").innerHTML = "All unlocks achieved. Check back later for more content" }
+    //else { document.getElementById("nextUnlockLevel").innerHTML = "You will unlock something new at level " + displayBig([1, unlockLevelsBig[game.player.unlocks - unlockLevelsSmall.length]]) } //Else if the player has gotten past that, it displays the level for the big level unlocks
     if (game.player.currentTab[0] <= 2) {
         document.getElementById("level").innerHTML = "Level " + displayRoundBig(game.xp.level)
-        if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { document.getElementById("level").innerHTML += " (Cap: " + displayRoundBig(game.xp.levelCap) + " )" }
-
+        if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { document.getElementById("level").innerHTML += " (Capped, pseudo: " + displayRoundBig(XPToLevel(addBig(game.xp.amount, game.xp.lostXP))) + " )" }
         //This bit is weird and gross
         //Sets the colour of the level bar, the texture of the level bar (if you're a high enough level), and your rank name
         i = 0
-        while (compareBig(game.xp.level, levelBarColours[i + 1][0])) i++
+        while (compareBigEqual(game.xp.level, levelBarColours[i + 1][0])) i++
         document.getElementById("levelBar").style.backgroundColor = levelBarColours[i][1]
         if (game.xp.level >= levelBarTextures[0]) {
             i = 0
-            while (compareBig(game.xp.level, levelBarTextures[i])) i++
+            while (compareBigEqual(game.xp.level, levelBarTextures[i])) i++
             document.getElementById("levelBar").style.backgroundImage = "url('img/texture" + i + ".png')"
             document.getElementById("levelBarText").style.textShadow = "0.3vh 0.3vh rgba(0,0,0,0.6)"
             document.getElementById("levelBarRankText").style.textShadow = "0.3vh 0.3vh rgba(0,0,0,0.6)"
         }
-        document.getElementById("rank").innerHTML = "Clicking to make this work (Ranks are WIP)"
+        i = 0
+        while (compareBigEqual(game.xp.level, ranks[i + 1].level)) { i++ }
+        game.player.ranks = i
+        document.getElementById("rank").innerHTML = ranks[game.player.ranks].name + " Clicker"
         //Sets the "XP to next level" text
         if (compareBig([5, 2], game.xp.level)) { //Single "XP to next level" in xp bar, up to level 500
             XPToNextLevel = substractBig(levelToXP(addBig(game.xp.level, 1)), levelToXP(game.xp.level)) //XP to next level = levelToXP(level + 1) - levelToXP(level) //substractBig(levelToXP(addBig(game.xp.level, 1)), levelToXP(game.xp.level))
@@ -287,7 +298,9 @@ function updateSmall() { //This part checks if buttons are available or not, add
         else { //xp to next x10
             levelExpo = game.xp.level[1]
             XPToNextOoM = substractBig(levelToXP([1, levelExpo + 1]), levelToXP([1, levelExpo]))
-            ProgressToNextOoM = substractBig(game.xp.amount, levelToXP([1, levelExpo]))
+            if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { ProgressToNextOoM = substractBig(addBig(game.xp.amount, game.xp.lostXP), levelToXP([1, levelExpo])) }
+            else { ProgressToNextOoM = substractBig(game.xp.amount, levelToXP([1, levelExpo])) }
+
             document.getElementById("XPBarText").innerHTML = "XP to next x10 levels: " + displayBig(ProgressToNextOoM) + "/" + displayBig(XPToNextOoM)
             document.getElementById("XPBarBack").style.width = (convertToNormal(divideBig(ProgressToNextOoM, XPToNextOoM)) * 100) + "%"
         }
@@ -346,7 +359,7 @@ function numberToTime(x) { //Converts a number from seconds (example: 346) into 
         if (Math.floor(xCeil / 3600) % 24 != 0) result += (Math.floor(xCeil / 3600) % 24) + "h "
         if (Math.floor(xCeil / 60) % 60 != 0) result += (Math.floor(xCeil / 60) % 60) + "m "
         if (xCeil % 60 != 0) result += Math.floor(xCeil % 60) + "s "
-        if (xCeil == 0) result = "0s" 
+        if (xCeil == 0) result = "0s"
         return result
     }
     else return "ERROR: Wrong time imput"
@@ -393,11 +406,11 @@ function xpUnlocks() { //Pending to remake this to the whole big number system, 
             if (convertToNormal(game.xp.level) >= unlockLevelsSmall[i] && game.player.unlocks < i + 1) { game.player.unlocks = i + 1 }
         }
     }
-    else {
+    /*else { //Enable this after update ig
         for (let i = 0; i < unlockLevelsBig.length; i++) {
             if (game.xp.level[1] >= unlockLevelsBig[i] && game.player.unlocks < i + 1 + unlockLevelsSmall.length) { game.player.unlocks = i + 1 + unlockLevelsSmall.length }
         }
-    }
+    }*/
 }
 setInterval(xpUnlocks, 50)
 
@@ -411,14 +424,23 @@ function gridInitializer() { //Ignore this, it was a test, you might not see thi
         game.mining.grid = table
     }
 }
-gridInitializer()
 
 function automationStuff(x) { //In charge of running through automation contents
-    if (game.player.unlocks >= 18) {game.tokens.autoTicks += x}
+    if (game.player.unlocks >= 18) { game.tokens.autoTicks += x }
     if (game.player.unlocks >= 18 && game.tokens.autoTicks >= 1200) {
         addTicks(1 + Math.floor(game.tokens.autoTicks / (1200 / game.tokens.cooldown) - 1))
         game.tokens.autoTicks = 0
     }
+}
+
+function changeTheme(x) {
+    game.player.currentTheme = x
+    if (x == 1) { document.getElementById("themeLink").href = "themes/themeLight.css" }
+    else if (x == 2) { document.getElementById("themeLink").href = "themes/themeDark.css" }
+    else if (x == 3) { document.getElementById("themeLink").href = "themes/themeNeon.css" }
+    else if (x == 4) { document.getElementById("themeLink").href = "themes/themeGreen.css" }
+    else if (x == 5) { document.getElementById("themeLink").href = "themes/themePurple.css" }
+    else if (x == 6) { document.getElementById("themeLink").href = "themes/themeRed.css" }
 }
 
 // Meta function guaranteed to run after the DOM is ready
@@ -445,20 +467,20 @@ onDomReady(function () {
 
 // Syncing animations
 document.addEventListener("animationstart", (event) => {
-  if (event.animationName === "flickering") {
-    let animationCurrentTime;
-    let anims = document.getAnimations();
-    for (let i = 0; i < anims.length; i++) {
-      if (anims[i].animationName === event.animationName) {
-        animationCurrentTime = anims[i].currentTime;
-        break;
-      }
-    }
+    if (event.animationName === "flickering") {
+        let animationCurrentTime;
+        let anims = document.getAnimations();
+        for (let i = 0; i < anims.length; i++) {
+            if (anims[i].animationName === event.animationName) {
+                animationCurrentTime = anims[i].currentTime;
+                break;
+            }
+        }
 
-    for (let i = 0; i < anims.length; i++) {
-      if (anims[i].animationName === event.animationName) {
-        if (animationCurrentTime) anims[i].currentTime = animationCurrentTime;
-      }
+        for (let i = 0; i < anims.length; i++) {
+            if (anims[i].animationName === event.animationName) {
+                if (animationCurrentTime) anims[i].currentTime = animationCurrentTime;
+            }
+        }
     }
-  }
 });
