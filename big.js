@@ -66,8 +66,8 @@ function multiplyBig(a, b) { //a is an array [mantissa, exponent] and b is anoth
         return finalNumber
     }
     else {
-        let firstNumber = 0
-        let secondNumber = 0
+        let firstNumber = 1
+        let secondNumber = 1
         if (typeof a === 'number' && !isNaN(a)) { firstNumber = convertToBig(a) }
         else if (a.length == 2) firstNumber = a
         if (typeof b === 'number' && !isNaN(b)) { secondNumber = convertToBig(b) }
@@ -84,8 +84,8 @@ function divideBig(a, b) { //a is an array [mantissa, exponent] and b is another
         return finalNumber
     }
     else {
-        let firstNumber = 0
-        let secondNumber = 0
+        let firstNumber = 1
+        let secondNumber = 1
         if (typeof a === 'number' && !isNaN(a)) { firstNumber = convertToBig(a) }
         else if (a.length == 2) firstNumber = a
         if (typeof b === 'number' && !isNaN(b)) { secondNumber = convertToBig(b) }
@@ -103,8 +103,8 @@ function exponentBig(a, b) { //x^y where x = [a0, a1] and y = [b0, b1], and [a, 
         return finalNumber
     }
     else {
-        let firstNumber = 0
-        let secondNumber = 0
+        let firstNumber = 1
+        let secondNumber = 1
         if (typeof a === 'number' && !isNaN(a)) { firstNumber = convertToBig(a) }
         else if (a.length == 2) firstNumber = a
         if (typeof b === 'number' && !isNaN(b)) { secondNumber = convertToBig(b) }

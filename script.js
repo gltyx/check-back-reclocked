@@ -50,7 +50,7 @@ function reset() {
             highestLevel: [1, 0], //Big
             ranks: 0, //Normal
             unlocks: 0, //Normal
-            currentTheme: 2, //Normal
+            currentTheme: 3, //Normal
             timeOfLastUpdate: Date.now(), //Normal
             sessionStart: Date.now(), //Normal
             speed: 1, //Normal
@@ -60,6 +60,7 @@ function reset() {
             buttonClicks: 0, //Normal
             cratesOpened: 0, //Normal
             online: false, //If this is false, whenever it updates cooldowns it won't count for playtime
+            crateEmoji: true //Bool
         },
         daily: { //This might be entirely scrapped
             days: 1, //Normal
@@ -89,7 +90,7 @@ function hardReset() {
 function save() {
     //console.log("saving")
     game.lastSave = Date.now();
-    localStorage.setItem("checkBack2Save", JSON.stringify(game)); //change to "checkBackRelockedSave" when release coming up
+    localStorage.setItem("checkBackReclockedSave", JSON.stringify(game)); //change to "checkBackRelockedSave" when release coming up
 }
 
 function setAutoSave() {
@@ -100,7 +101,7 @@ function setAutoSave() {
 
 function load() {
     reset()
-    let loadgame = JSON.parse(localStorage.getItem("checkBack2Save")) //change to "checkBackRelockedSave" when release coming up
+    let loadgame = JSON.parse(localStorage.getItem("checkBackReclockedSave")) //change to "checkBackRelockedSave" when release coming up
     if (loadgame != null) { loadGame(loadgame) }
 
     updateSmall()
@@ -132,7 +133,7 @@ function importGame() {
 
 function loadGame(loadgame) {
     //Sets each variable in 'game' to the equivalent variable in 'loadgame' (the saved file)
-    let dataBackup = localStorage.getItem("checkBack2Save"); //change to "checkBackRelockedSave" when release coming up
+    let dataBackup = localStorage.getItem("checkBackReclockedSave"); //change to "checkBackRelockedSave" when release coming up
     try {
         let loadKeys = Object.keys(loadgame);
         if (loadKeys.length > 1000) loadKeys = Object.keys(fixFile(loadgame));
@@ -148,7 +149,7 @@ function loadGame(loadgame) {
         }
     } catch (err) {
         //catch will prevent the data loading from continuing whenever a save file is incorrectly uploaded
-        if (dataBackup !== null) localStorage.setItem("checkBack2Save", dataBackup); //change to "checkBackRelockedSave" when release coming up
+        if (dataBackup !== null) localStorage.setItem("checkBackReclockedSave", dataBackup); //change to "checkBackRelockedSave" when release coming up
         window.alert(`Save Data Issues!\n${err}`); //whatever you want to say here
     }
 }
@@ -164,6 +165,7 @@ function updateStuffOnLoad() {
     for (i = 0; i < tokenUpgrades.length; i++) {
         if (!game.tokens.upgrades[i]) { game.tokens.upgrades[i] = 0 }
     }
+    changeTheme(game.player.currentTheme)
 }
 updateStuffOnLoad()
 
@@ -197,7 +199,8 @@ function updateSmall() { //This part checks if buttons are available or not, add
             }
             else {
                 document.getElementById(petButtons[i].name).disabled = false
-                document.getElementById(petButtons[i].name).innerHTML = "Unbox a random " + petButtons[i].crateName + " pet"
+                if (game.player.crateEmoji == true) {document.getElementById(petButtons[i].name).innerHTML = petButtons[i].emoji + " Open a " + petButtons[i].crateName + " crate " + petButtons[i].emoji}
+                else {document.getElementById(petButtons[i].name).innerHTML = "Open a " + petButtons[i].crateName + " crate"}
             }
         }
     }
@@ -441,6 +444,8 @@ function changeTheme(x) {
     else if (x == 4) { document.getElementById("themeLink").href = "themes/themeGreen.css" }
     else if (x == 5) { document.getElementById("themeLink").href = "themes/themePurple.css" }
     else if (x == 6) { document.getElementById("themeLink").href = "themes/themeRed.css" }
+    else if (x == 7) { document.getElementById("themeLink").href = "themes/themeAlternate.css" }
+    else if (x == 8) { document.getElementById("themeLink").href = "themes/themeInverted.css" }
 }
 
 // Meta function guaranteed to run after the DOM is ready

@@ -27,6 +27,10 @@ const otherFunniesDisplay = [
     { name: "selectedPetText", unlock: 5 },
 ]
 
+const extraSettings = [
+    { name: "setting7", unlock: 5 },
+]
+
 function tab(x) {
     game.player.tabDropdown = x
 }
@@ -52,7 +56,7 @@ function displayTabContent() {
     }
     if (JSON.stringify(game.player.currentTab) == JSON.stringify([2, 3])) document.getElementById("petRarities").innerHTML = XPBoostEffects()
     if (game.player.unlocks >= 18 && JSON.stringify(game.player.currentTab) == JSON.stringify([2, 4])) {
-        document.getElementById("tokenButton0").style.display = "block" 
+        document.getElementById("tokenButton0").style.display = "block"
         document.getElementById("petRarities").innerHTML = ""
     }
     else { document.getElementById("tokenButton0").style.display = "none" } //This is the check for every token upgrade
@@ -96,6 +100,17 @@ function displayFunnies() { //This is for stuff like selected pet text
     }
 }
 setInterval(displayFunnies, 50)
+
+function displayExtraSettings() {
+    for (let i = 0; i < extraSettings.length; i++) {
+        if (game.player.unlocks >= extraSettings[i].unlock) {
+            document.getElementById(extraSettings[i].name).style.display = "block"
+            document.getElementById(extraSettings[i].name).innerHTML = "Crate emojis: " + game.player.crateEmoji
+        }
+        else {document.getElementById(extraSettings[i].name).style.display = "none"}
+    }
+}
+setInterval(displayExtraSettings, 50)
 
 function XPTab() {
     let flicker = false

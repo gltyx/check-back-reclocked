@@ -56,6 +56,7 @@ function credits() {
     result += "Demonin: <a href=\"https://demonin.com/games/checkBack\" target=\"_blank\">Original Check Back</a> idea<br>"
     result += "Alderi: Helpful css changes<br>"
     result += "Mirakos: Clock icon <a href=\"https://itch.io/embed-upload/15381958?color=000000\" target=\"_blank\">(Pixelgrab)</a><br>"
+    result += "<a href=\"https://crawl.develz.org/play.htm\" target=\"_blank\">Dungeon Crawl:</a> Many textures are open-source and come from this project<br>"
     result += "All testers and everyone who played, including you <3"
     return result
 }

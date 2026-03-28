@@ -1,9 +1,9 @@
 const petButtons = [ //The stats of every single pet button, also they are found on tab 2.2
-    { name: "petButton0", id: 0, cooldown: 600, unlock: 5, crateName: "basic" }, //Level 8
-    { name: "petButton1", id: 1, cooldown: 1200, unlock: 6, crateName: "nature" }, //Level 12
-    { name: "petButton2", id: 2, cooldown: 3000, unlock: 9, crateName: "earth" }, //Level 40
-    { name: "petButton3", id: 3, cooldown: 7200, unlock: 14, crateName: "fire" }, //Level 200
-    { name: "petButton4", id: 4, cooldown: 15000, unlock: 21, crateName: "skeleton" }, //Level 5000
+    { name: "petButton0", id: 0, cooldown: 600, unlock: 5, crateName: "basic", emoji: "💠" }, //Level 8
+    { name: "petButton1", id: 1, cooldown: 1200, unlock: 6, crateName: "nature", emoji: "🦎" }, //Level 12
+    { name: "petButton2", id: 2, cooldown: 3000, unlock: 9, crateName: "earth", emoji: "🦂" }, //Level 40
+    { name: "petButton3", id: 3, cooldown: 7200, unlock: 14, crateName: "fire", emoji: "🔥" }, //Level 200
+    { name: "petButton4", id: 4, cooldown: 15000, unlock: 21, crateName: "skeleton", emoji: "💀" }, //Level 5000
 ]
 
 const petBorders = [
@@ -116,7 +116,7 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
             let petChosen = petsList[i][0]
             if (!game.pets.amount[petChosen]) { game.pets.amount[petChosen] = amount }
             else { game.pets.amount[petChosen] += amount }
-            if (game.pets.amount[petChosen] >= 1 && game.pets.individualDiscovered[petChosen] == 0) {game.pets.individualDiscovered[petChosen] = 1}
+            if (game.pets.amount[petChosen] >= 1 && game.pets.individualDiscovered[petChosen] == 0) { game.pets.individualDiscovered[petChosen] = 1 }
             latestDrops(petChosen, amount)
         }
     }
@@ -221,3 +221,7 @@ function calculatePetMultis() {
     game.pets.luck = baseLuck
 }
 setInterval(calculatePetMultis, 50)
+
+function changeEmojis() {
+    game.player.crateEmoji = !game.player.crateEmoji
+}

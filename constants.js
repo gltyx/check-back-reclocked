@@ -48,7 +48,7 @@ const ranks = [ //This will probably be remade for there to be less names but mo
 const pets = [
     //Name, XP multiplier, Funny special text.
     { name: "Test", specialText: "Hey, how did you find me? (Placeholder)" }, //0
-    { name: "Slug", xpMulti: 1.2, specialText: "A snail that lost its shell and has to live underneath a bridge... for now.<br>(Most textures like this have been taken from a project called Dungeon Crawl, check it out)" }, // 1
+    { name: "Slug", xpMulti: 1.2, specialText: "A snail that lost its shell and has to live underneath a bridge... for now." }, // 1
     { name: "Rat", xpMulti: 1.4, specialText: "A rat forced to eat trash to survive. It'd love to eat a fresh lug anyday." }, // 2
     { name: "Snake", xpMulti: 1.6, specialText: "A snake living in barren wastes, looking for any juicy rat to eat." }, // 3
     { name: "Small Elf", xpMulti: 2, specialText: "This breed of elves is so small that they cannot harvest anything bigger than a mushroom. They love to dine on snakes." }, // 4
@@ -66,22 +66,22 @@ const pets = [
     { name: "Scorpion", xpMulti: 10, xpCooldown: 1.05, specialText: "People used to call me the 'Death Scorpion' but I prefer being a farmer, so I dropped the name." }, //16
     { name: "Cat", xpMulti: 12, xpCooldown: 1.07, specialText: "Maybe the fastest sheriff of the wild west, if the cat were to behave correctly." }, //17
     { name: "Earth Dragon", xpMulti: 15, xpCooldown: 1.1, specialText: "The father of the Earth, this dragon can make life out of sticks and stones." }, //18
-    { name: "Burning Eyeball", xpMulti: 10, xpCooldown: 1.05, specialText: "Blinded by it's own blaze of glory" }, //19
-    { name: "Red Slime", xpMulti: 15, xpCooldown: 1.09, specialText: "It was him! He stole my pizza! Stronzo amaro" }, //20
-    { name: "Red Snake", xpMulti: 22, xpCooldown: 1.13, specialText: "It's hot, that's all... nevermind, it self combusted" }, //21
-    { name: "Red Butterfly", xpMulti: 30, xpCooldown: 1.18, specialText: "Can survive flying through flames. If you ride it, however, you couldn't survive" }, //22
+    { name: "Burning Eyeball", xpMulti: 10, xpCooldown: 1.05, specialText: "Blinded by it's own blaze of glory." }, //19
+    { name: "Red Slime", xpMulti: 15, xpCooldown: 1.09, specialText: "It was him! He stole my pizza! Stronzo amaro." }, //20
+    { name: "Red Snake", xpMulti: 22, xpCooldown: 1.13, specialText: "It's hot, that's all... nevermind, it self combusted." }, //21
+    { name: "Red Butterfly", xpMulti: 30, xpCooldown: 1.18, specialText: "Can survive flying through flames. If you ride it, however, you couldn't survive." }, //22
     { name: "Fire Spirit", xpMulti: 40, xpCooldown: 1.24, specialText: "This side of the wind generates a better hairline. WAIT! I cast a shadow????" }, //23
-    { name: "Fiery Fish", xpMulti: 60, xpCooldown: 1.3, specialText: "Evaporates all water around it. That's why it lives on land" }, //24
-    { name: "Sleepy Fire Demon", xpMulti: 80, xpCooldown: 1.35, specialText: "20 hours no sleep, 3'o clock in the morning, no fuel left to be evil" }, //25
-    { name: "Fire Dragon", xpMulti: 100, xpCooldown: 1.4, specialText: "He's so powerful that has to be nerfed by leaving a path of ashes whenever he goes" }, //26
-    { name: "Small Skeleton", xpMulti: 50, xpCooldown: 1.3, specialText: "Poor child" }, //27
-    { name: "Skeletal Dog", xpMulti: 75, xpCooldown: 1.4, specialText: "Skulls are a mix of tennis balls and bones. 2 in 1" }, //28
-    { name: "Normal Skeleton", xpMulti: 110, xpCooldown: 1.5, tokenMulti: 1.3, specialText: "What do you mean normal? You ra-" }, //29
-    { name: "Skeletal Snake", xpMulti: 150, xpCooldown: 1.6, tokenMulti: 1.6, specialText: "Wait, snakes do not have bones. This is fake" }, //30
-    { name: "Skeletal Vulture", xpMulti: 200, xpCooldown: 1.7, tokenMulti: 1.9, specialText: "He got an F in aerodynamics" }, //31
-    { name: "Skeletal Hound", xpMulti: 275, xpCooldown: 1.8, tokenMulti: 2.2, specialText: "Don't call it a dog or you'll see the difference" }, //32
-    { name: "Skeletal Hydra", xpMulti: 350, xpCooldown: 1.9, tokenMulti: 2.5, specialText: "Each head makes a different bone creak tune" }, //33
-    { name: "Skeletal Dragon", xpMulti: 500, xpCooldown: 2, tokenMulti: 3, specialText: "He will come back in Avengers: Doomsday" }, //34
+    { name: "Fiery Fish", xpMulti: 60, xpCooldown: 1.3, specialText: "Evaporates all water around it. That's why it lives on land." }, //24
+    { name: "Sleepy Fire Demon", xpMulti: 80, xpCooldown: 1.35, specialText: "20 hours no sleep, 3'o clock in the morning, no fuel left to be evil." }, //25
+    { name: "Fire Dragon", xpMulti: 100, xpCooldown: 1.4, specialText: "He's so powerful that has to be nerfed by leaving a path of ashes whenever he goes." }, //26
+    { name: "Small Skeleton", xpMulti: 50, xpCooldown: 1.3, tokenMulti: 1.4, specialText: "Poor child." }, //27
+    { name: "Skeletal Dog", xpMulti: 75, xpCooldown: 1.4, tokenMulti: 1.7, specialText: "Skulls are a mix of tennis balls and bones. 2 in 1." }, //28
+    { name: "Normal Skeleton", xpMulti: 110, xpCooldown: 1.5, tokenMulti: 2.1, specialText: "What do you mean normal? You ra-" }, //29
+    { name: "Skeletal Snake", xpMulti: 150, xpCooldown: 1.6, tokenMulti: 2.5, specialText: "Wait, snakes do not have bones. This is fake." }, //30
+    { name: "Skeletal Vulture", xpMulti: 200, xpCooldown: 1.7, tokenMulti: 3, specialText: "He got an F in aerodynamics." }, //31
+    { name: "Skeletal Hound", xpMulti: 275, xpCooldown: 1.8, tokenMulti: 3.6, specialText: "Don't call it a dog or you'll see the difference." }, //32
+    { name: "Skeletal Hydra", xpMulti: 350, xpCooldown: 1.9, tokenMulti: 4.3, specialText: "Each head makes a different bone creak tune." }, //33
+    { name: "Skeletal Dragon", xpMulti: 500, xpCooldown: 2, tokenMulti: 5, specialText: "He will come back in Avengers: Doomsday." }, //34
 ]
 
 const basicUnboxChances = [
