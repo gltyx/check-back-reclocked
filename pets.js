@@ -100,30 +100,32 @@ function unboxAmount(x, y) {
 }
 
 function unboxPet(x, y) { //Planned to be for only 1 pet unbox
-    let petsList = 0
-    if (x == 0) { petsList = basicUnboxChances }
-    if (x == 1) { petsList = natureUnboxChances }
-    if (x == 2) { petsList = earthUnboxChances }
-    if (x == 3) { petsList = fireUnboxChances }
-    if (x == 4) { petsList = skeletonUnboxChances }
-    for (let i = 0; i < petsList.length; i++) {
-        let odds = petsList[i][1] * game.pets.luck //To add luck factor in here, and also some sort of repeated rolls thing
-        let minimum = Math.floor(odds)
-        let amount = minimum
-        let roll = Math.random()
-        if (roll <= odds % 1) { amount++ }
-        if (amount >= 1) {
-            let petChosen = petsList[i][0]
-            if (!game.pets.amount[petChosen]) { game.pets.amount[petChosen] = amount }
-            else { game.pets.amount[petChosen] += amount }
-            if (game.pets.amount[petChosen] >= 1 && game.pets.individualDiscovered[petChosen] == 0) { game.pets.individualDiscovered[petChosen] = 1 }
-            latestDrops(petChosen, amount)
+    if (game.pets.buttonCooldowns[x] == 0) {
+        let petsList = 0
+        game.pets.buttonCooldowns[x] = petButtons[x].cooldown / game.pets.cooldown
+        if (x == 0) { petsList = basicUnboxChances }
+        if (x == 1) { petsList = natureUnboxChances }
+        if (x == 2) { petsList = earthUnboxChances }
+        if (x == 3) { petsList = fireUnboxChances }
+        if (x == 4) { petsList = skeletonUnboxChances }
+        for (let i = 0; i < petsList.length; i++) {
+            let odds = petsList[i][1] * game.pets.luck //To add luck factor in here, and also some sort of repeated rolls thing
+            let minimum = Math.floor(odds)
+            let amount = minimum
+            let roll = Math.random()
+            if (roll <= odds % 1) { amount++ }
+            if (amount >= 1) {
+                let petChosen = petsList[i][0]
+                if (!game.pets.amount[petChosen]) { game.pets.amount[petChosen] = amount }
+                else { game.pets.amount[petChosen] += amount }
+                if (game.pets.amount[petChosen] >= 1 && game.pets.individualDiscovered[petChosen] == 0) { game.pets.individualDiscovered[petChosen] = 1 }
+                latestDrops(petChosen, amount)
+            }
         }
+        game.player.cratesOpened += y
+        if (game.dailyBonuses.luckCharges >= 1) { game.dailyBonuses.luckCharges -= 1 }
+        openCloseUnboxTab()
     }
-    game.pets.buttonCooldowns[x] = petButtons[x].cooldown / game.pets.cooldown
-    game.player.cratesOpened += y
-    if (game.dailyBonuses.luckCharges >= 1) {game.dailyBonuses.luckCharges -= 1}
-    openCloseUnboxTab()
 }
 
 function displayPetRarities(x) {

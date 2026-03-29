@@ -14,9 +14,11 @@ const XPButtons = [ //The stats of every single xp button, also they are found o
 ]
 
 function xpButton(x) {
-    game.xp.amount = addBig(game.xp.amount, calculateXPGain(x)) //Adds your xp
-    game.xp.buttonCooldowns[x] = Math.max(XPButtons[x].cooldown / game.xp.cooldown, 1) //Sets the xp button cooldown to the required time
-    game.player.buttonClicks += 1
+    if (game.xp.buttonCooldowns[x] == 0) {
+        game.xp.buttonCooldowns[x] = Math.max(XPButtons[x].cooldown / game.xp.cooldown, 1) //Sets the xp button cooldown to the required time
+        game.xp.amount = addBig(game.xp.amount, calculateXPGain(x)) //Adds your xp
+        game.player.buttonClicks += 1
+    }
 }
 
 function calculateXPGain(x) { //You insert this command with the desired xp amount and it returns the gain after multipliers

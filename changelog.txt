@@ -1,6 +1,9 @@
 Check Back Reclocked Changelog (dd/mm/yy for americans)
 ------------------------------
 
+Version 3.1: Doubleclick fix (29/03/26)
+-Fixed doubleclick bug
+
 Version 3: I fucked up everything patch (29/03/26)
 -Quite obvious what happened here
 

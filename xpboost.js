@@ -7,9 +7,11 @@ const XPBoostButtons = [ //The stats of every single xp boost button, also they 
 ]
 
 function xpBButton(x) {
-    game.xpBoost.amount = addBig(game.xpBoost.amount, calculateXPBGain(x)) //Adds your xpboost
-    game.xpBoost.buttonCooldowns[x] = XPBoostButtons[x].cooldown / game.xpBoost.cooldown //Sets the xp button cooldown to the required time
-    game.player.buttonClicks += 1
+    if (game.xpBoost.buttonCooldowns[x] == 0) {
+        game.xpBoost.amount = addBig(game.xpBoost.amount, calculateXPBGain(x)) //Adds your xpboost
+        game.xpBoost.buttonCooldowns[x] = XPBoostButtons[x].cooldown / game.xpBoost.cooldown //Sets the xp button cooldown to the required time
+        game.player.buttonClicks += 1
+    }
 }
 
 function calculateXPBGain(x) { //You insert this command with the desired xp amount and it returns the gain after multipliers
@@ -31,7 +33,7 @@ setInterval(calculateXPBStats, 50)
 
 function XPBoostEffects() {
     let result = ("XPBoost: " + displayBig(game.xpBoost.amount))
-    if (compareBig(game.xpBoost.effectExpo, [1, 0])) {result += "<br>Exponent: ^" + displayBig(game.xpBoost.effectExpo)}
+    if (compareBig(game.xpBoost.effectExpo, [1, 0])) { result += "<br>Exponent: ^" + displayBig(game.xpBoost.effectExpo) }
     result += "<br>XP Multi: " + displayBig(game.xpBoost.effectiveBoost)
     return result
 }
