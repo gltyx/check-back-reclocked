@@ -99,6 +99,7 @@
                 <button class="themeButton" style="background-color: #d75; border: 0.3vh solid #422; color: #422" onclick="changeTheme(6)">Red</button>
                 <button class="themeButton" style="background-color: rgb(255, 247, 0); border: 0.3vh solid rgb(255, 0, 0); color: rgb(1, 170, 255)" onclick="changeTheme(7)">Rainbow</button>
                 <button class="themeButton" style="background-color: rgb(153, 1, 255); border: 0.3vh solid rgb(9, 255, 0); color: rgb(255, 175, 1)" onclick="changeTheme(8)">Inverted</button>
+                <button class="themeButton" style="background-color: rgb(54, 0, 0); border: 0.3vh solid rgb(180, 0, 0); color: rgb(180, 0, 0)" onclick="changeTheme(9)">Volcano</button>
             </div>
 
             <button class="button" id="dailyButton" style="display: none" onclick="openCloseDailyTab()">Daily rewards</button>
@@ -125,8 +126,7 @@
 
     <div id="dailyDiv">
         <p style='font-size: 5vh; font-weight: bold; color: #ccc; margin: 0; margin-left: 6px'>Daily reward</p>
-        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on a reward to
-            obtain it. Rewards refresh once all have been collected</p>
+        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Claim rewards by clicking first button. Others are for buying upgrades</p>
         <button class="closeButton" onclick="openCloseDailyTab()">Close</button>
         <div id="dailyList">
             <div id="dailyListInner"></div>
@@ -136,9 +136,7 @@
 
     <div id="petsDiv">
         <p style='font-size: 5vh; font-weight: bold; color: #ccc; margin: 0; margin-left: 6px'>Pets</p>
-        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on a pet you've
-            unlocked to select it. Each discovered pet gives +1% XP gains (Most of the textures are taken from "Open
-            game art" from a project called Dungeon Crawl. Make sure to check these out)</p>
+        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on a pet you've unlocked to equip it</p>
         <button class="closeButton" onclick="openClosePetsTab()">Close</button>
         <div id="petsList">
             <div id="petsListInner"></div>
@@ -148,8 +146,7 @@
 
     <div id="statsDiv">
         <p style='font-size: 5vh; font-weight: bold; color: #ccc; margin: 0; margin-left: 6px'>Stats</p>
-        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on an icon to
-            watch related statistics</p>
+        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on an icon to watch related statistics</p>
         <button class="closeButton" onclick="openCloseStatsTab()">Close</button>
         <div id="statsList">
             <div id="statsListInner"></div>
@@ -159,8 +156,7 @@
 
     <div id="unboxDiv">
         <p style='font-size: 5vh; font-weight: bold; color: #ccc; margin: 0; margin-left: 6px'>Unboxed Pets</p>
-        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on any pet to
-            equip it</p>
+        <p style='font-size: 1.6vh; color: #ccc; margin: 0; margin-bottom: 6px; margin-left: 6px'>Click on any pet toequip it</p>
         <button class="closeButton" onclick="openCloseUnboxTab()">Close</button>
         <div id="unboxList">
             <div id="unboxListInner"></div>

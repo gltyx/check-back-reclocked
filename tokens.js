@@ -22,6 +22,7 @@ function addTicks(x) {
 function calculateTokenGain() {
     let baseAmount = 0.1
     baseAmount *= game.tokenBonuses.tokens
+    baseAmount *= game.dailyBonuses.tokenBonus
     if (!!pets[game.pets.equipped].tokenMulti) {baseAmount *= pets[game.pets.equipped].tokenMulti}
     if (game.tokens.bankAmount > 1) {baseAmount = (baseAmount/game.tokens.bankAmount)}
     if (game.tokens.bankAmount >= 5 && game.tokens.upgrades[8] > 0) {baseAmount *= (1 + Math.log(game.tokens.ticks))}

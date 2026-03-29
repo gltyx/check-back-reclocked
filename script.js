@@ -60,15 +60,23 @@ function reset() {
             buttonClicks: 0, //Normal
             cratesOpened: 0, //Normal
             online: false, //If this is false, whenever it updates cooldowns it won't count for playtime
-            crateEmoji: true //Bool
+            crateEmoji: true, //Bool
+            versionNumber: 2, //Normal
         },
-        daily: { //This might be entirely scrapped
+        daily: { //This is entirely remade
             days: 1, //Normal
-            rewardLength: 2, //Normal
-            rewards: [0, 1, 1, 0], //List of normals
-            rewardCap: [0, 1, 1, 0], //List of normals
-            dailyXP: [1, 0], //Big
+            tokens: 0, //Normal
+            cooldown: 0, //Normal
+            upgrades: [0, 0, 0, 0], //List of normals
+        },
+        dailyBonuses: {
+            luckCharges: 0, //Normal
+            timeSkip: 900000, //Normal
+            xp: [1, 0], //Big
+            xpBoost: [1, 0], //Big
             crateLuck: 1, //Normal
+            ticks: 60, //Normal
+            tokenBonus: 1,
         },
         mining: { //This is a test
             gridSize: 10,
@@ -165,6 +173,16 @@ function updateStuffOnLoad() {
     for (i = 0; i < tokenUpgrades.length; i++) {
         if (!game.tokens.upgrades[i]) { game.tokens.upgrades[i] = 0 }
     }
+    for (i = 0; i < dailyUpgrades.length; i++) {
+        if (!game.daily.upgrades[i]) {game.daily.upgrades[i] = 0}
+    }
+    if (!game.player.versionNumber) {
+        game.player.versionNumber = 2
+        game.daily.tokens = 0
+        game.dailyBonuses.luckCharges = 0
+        game.dailyBonuses.timeSkip = 900000
+        game.dailyBonuses.ticks = 60
+    }
     changeTheme(game.player.currentTheme)
 }
 updateStuffOnLoad()
@@ -256,6 +274,12 @@ function updateSmall() { //This part checks if buttons are available or not, add
     else {
         document.getElementById("MainTab").classList.remove("flickering")
     }
+    if (game.daily.cooldown == 0) {
+        document.getElementById("dailyButton").classList.add("flickering")
+    }
+    else {
+        document.getElementById("dailyButton").classList.remove("flickering")
+    }
     game.xp.levelCap = [1, 5] //If you edit this you're a real cheater
     if (compareBigEqual(game.xp.amount, levelToXP(game.xp.levelCap))) {
         game.xp.lostXP = addBig(game.xp.lostXP, substractBig(game.xp.amount, levelToXP(game.xp.levelCap)))
@@ -329,20 +353,23 @@ game.player.online = false
 function updateLarge() {
 
     for (let i = 0; i < XPButtons.length; i++) { //Updates every xp cooldown based on the difference between current time and last time they have been updated. NOTE: This has to be copied for every set of button cooldowns
-        if (game.xp.buttonCooldowns[i] > 0) game.xp.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))
-        if (game.xp.buttonCooldowns[i] < 0) game.xp.buttonCooldowns[i] = 0
-        if (!game.xp.buttonCooldowns[i]) game.xp.buttonCooldowns[i] = 0
+        if (game.xp.buttonCooldowns[i] > 0) {game.xp.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))}
+        if (game.xp.buttonCooldowns[i] < 0) {game.xp.buttonCooldowns[i] = 0}
+        if (!game.xp.buttonCooldowns[i]) {game.xp.buttonCooldowns[i] = 0}
     }
     for (let i = 0; i < petButtons.length; i++) { //Updates every pet cooldown based on the difference between current time and last time they have been updated.
-        if (game.pets.buttonCooldowns[i] > 0) game.pets.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))
-        if (game.pets.buttonCooldowns[i] < 0) game.pets.buttonCooldowns[i] = 0
-        if (!game.pets.buttonCooldowns[i]) game.pets.buttonCooldowns[i] = 0
+        if (game.pets.buttonCooldowns[i] > 0) {game.pets.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))}
+        if (game.pets.buttonCooldowns[i] < 0) {game.pets.buttonCooldowns[i] = 0}
+        if (!game.pets.buttonCooldowns[i]) {game.pets.buttonCooldowns[i] = 0}
     }
     for (let i = 0; i < XPBoostButtons.length; i++) { //Updates every xp cooldown based on the difference between current time and last time they have been updated. NOTE: This has to be copied for every set of button cooldowns
-        if (game.xpBoost.buttonCooldowns[i] > 0) game.xpBoost.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))
-        if (game.xpBoost.buttonCooldowns[i] < 0) game.xpBoost.buttonCooldowns[i] = 0
-        if (!game.xpBoost.buttonCooldowns[i]) game.xpBoost.buttonCooldowns[i] = 0
+        if (game.xpBoost.buttonCooldowns[i] > 0) {game.xpBoost.buttonCooldowns[i] -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))}
+        if (game.xpBoost.buttonCooldowns[i] < 0) {game.xpBoost.buttonCooldowns[i] = 0}
+        if (!game.xpBoost.buttonCooldowns[i]) {game.xpBoost.buttonCooldowns[i] = 0}
     }
+    if (game.daily.cooldown > 0) {game.daily.cooldown -= ((Date.now() - game.player.timeOfLastUpdate) / (1000 / game.player.speed))}
+    if (game.daily.cooldown < 0) {game.daily.cooldown = 0}
+    if (!game.daily.cooldown) {game.daily.cooldown = 0}
     if (game.player.online == true) {
         game.player.timePlayed += (Date.now() - game.player.timeOfLastUpdate) / 1000
     } //When you load, the "online" tag gets set to false. If it's false, on the first loop of update large it'll get set to true. Then, when true, updates playtime
@@ -446,6 +473,7 @@ function changeTheme(x) {
     else if (x == 6) { document.getElementById("themeLink").href = "themes/themeRed.css" }
     else if (x == 7) { document.getElementById("themeLink").href = "themes/themeAlternate.css" }
     else if (x == 8) { document.getElementById("themeLink").href = "themes/themeInverted.css" }
+     else if (x == 9) { document.getElementById("themeLink").href = "themes/themeVolcano.css" }
 }
 
 // Meta function guaranteed to run after the DOM is ready
@@ -466,6 +494,7 @@ onDomReady(function () {
             if (document.getElementById("petsDiv").style.display == "block") { openClosePetsTab() }
             if (document.getElementById("unboxDiv").style.display == "block") { openCloseUnboxTab() }
             if (document.getElementById("statsDiv").style.display == "block") { openCloseStatsTab() }
+            if (document.getElementById("dailyDiv").style.display == "block") { openCloseDailyTab() }
         }
     });
 });

@@ -122,6 +122,7 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
     }
     game.pets.buttonCooldowns[x] = petButtons[x].cooldown / game.pets.cooldown
     game.player.cratesOpened += y
+    if (game.dailyBonuses.luckCharges >= 1) {game.dailyBonuses.luckCharges -= 1}
     openCloseUnboxTab()
 }
 
@@ -153,6 +154,9 @@ function displayPetRarities(x) {
             let odds = petsList[i][1] * game.pets.luck
             if (odds > 1) { document.getElementById("petRarities").innerHTML += pets[petsList[i][0]].name + ": " + Math.floor(odds) + " +" + ((odds % 1) * 100).toFixed(2) + "%<br>" }
             else { document.getElementById("petRarities").innerHTML += pets[petsList[i][0]].name + ": " + (odds * 100).toFixed(2) + "%<br>" }
+        }
+        if (game.dailyBonuses.luckCharges >= 1) {
+            document.getElementById("petRarities").innerHTML += "<br>You have " + wholeNumberShort(game.dailyBonuses.luckCharges) + " luck charges<br>x1.5 Luck will be used"
         }
     }
 }
@@ -218,6 +222,7 @@ function calculatePetMultis() {
     game.pets.cooldown = 1
     let baseLuck = 1
     baseLuck *= game.tokenBonuses.luck
+    baseLuck *= game.dailyBonuses.crateLuck
     game.pets.luck = baseLuck
 }
 setInterval(calculatePetMultis, 50)

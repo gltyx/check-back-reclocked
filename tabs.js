@@ -8,6 +8,7 @@
 
 //This will mostly be removed soon and turned into some sort of "Dodecadragons" map-like grid
 const mainTabs = [ //Represents the names and unlocks for each main tab
+    { name: "dailyButton", unlock: 3 },
     { name: "InventoryTab", unlock: 5 },
     { name: "MainTab", unlock: 5 },
 ]
@@ -88,8 +89,6 @@ function displayMainButtons() {
         if (game.player.unlocks >= mainSubTab[i].unlock && game.player.tabDropdown == 2) { document.getElementById(mainSubTab[i].name).style.display = "block" }
         else { document.getElementById(mainSubTab[i].name).style.display = "none" }
     }
-    if (game.player.permanentUnlocks >= 1) { document.getElementById("dailyButton").style.display = "block" }
-    else { document.getElementById("dailyButton").style.display = "none" }
 }
 setInterval(displayMainButtons, 50)
 

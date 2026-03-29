@@ -80,6 +80,7 @@ function playerStats() {
 
 function xpStats() {
     let result = "XP Multipliers:<br>"
+    if (game.daily.upgrades[3] >= 1) {result += "x" + displayBig(game.dailyBonuses.xp) + " from daily rewards<br>"}
     if (!!pets[game.pets.equipped].xpMulti) { result += "x" + displayBig(pets[game.pets.equipped].xpMulti) + " from pets<br>" }
     if (compareBig(game.xpBoost.amount, [1, 0])) { result += "x" + displayBig(game.xpBoost.effectiveBoost) + " from XPBoost<br>" }
     if (compareBig(game.tokenBonuses.xp, [1, 0])) { result += "x" + displayBig(game.tokenBonuses.xp) + " from token upgrades<br>" }
@@ -101,6 +102,8 @@ function petStats() {
     if (game.pets.luck > 1) {
         result += "<br>Luck factors:<br>"
         if (game.tokenBonuses.luck > 1) {result += "x" + numberShort(game.tokenBonuses.luck) + " from token upgrades<br>"}
+        if (game.daily.upgrades[2] > 1) {result += "x" + numberShort(1 + 0.05 * game.daily.upgrades[2]) + " from daily upgrades<br>"}
+        if (game.dailyBonuses.luckCharges >= 1) {result += "x1.5 from luck charges<br>"}
         result += "TOTAL: x" + numberShort(game.pets.luck) + "<br>"
     }
     return result
@@ -108,6 +111,7 @@ function petStats() {
 
 function xpBoostStats() {
     let result = "XPBoost Multipliers: <br>"
+    if (game.daily.upgrades[5] >= 1) {result += "x" + displayBig(game.dailyBonuses.xpBoost) + " from daily rewards<br>"}
     if (compareBig(game.tokenBonuses.xpBoost, [1, 0])) {result += "x" + displayBig(game.tokenBonuses.xpBoost) + " from token upgrades<br>"}
     result += "TOTAL: x" + displayBig(game.xpBoost.multiplier) + "<br><br>"
     return result
@@ -116,6 +120,7 @@ function xpBoostStats() {
 function tokenStats() {
     let result = "Base gain: 0.1, multipliers:<br>"
     if (game.tokenBonuses.tokens > 1) {result += "x" + numberShort(game.tokenBonuses.tokens) + " from token upgrades<br>"}
+    if (game.daily.upgrades[6] >= 1) {result += "x" + numberShort(game.dailyBonuses.tokenBonus) + " from daily rewards<br>"}
     if (!!pets[game.pets.equipped].tokenMulti) {result += "x" + numberShort(pets[game.pets.equipped].tokenMulti) + " from pets<br>"}
     if (game.tokens.bankAmount >= 5 && game.tokens.upgrades[8] >= 1) {result += "x" + numberShort(1 + Math.log(game.tokens.ticks)) + " from ticks<br>"}
     if (game.tokens.bankAmount >= 1) {result += "/" + numberShort(game.tokens.bankAmount) + " from bank scaling<br>"}

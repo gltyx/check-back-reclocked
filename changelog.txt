@@ -1,6 +1,10 @@
 Check Back Reclocked Changelog (dd/mm/yy for americans)
 ------------------------------
 
+Version 2: Day 1 patch (29/03/26)
+-Added daily rewards + 5 daily upgrades. Enjoy a mix of 1-time and permanent bonuses on purchase
+-Added a new "Volcano" theme. Honestly, top 3 best themes
+-Fixed typos (No, there is no "bonus based on pets discovered" for now, sorry)
 
 Version 1: Alpha release (28/03/26)
 -Entirety of the code has been remade, and there's now a custom number library that allows numbers to go up to 1e1.8e308 (Not all of them use this library)

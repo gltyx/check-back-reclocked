@@ -128,3 +128,13 @@ const tokenUpgrades = [ //Name, base upgrade cost, cost scaling, total levels, e
     {name: "tokenUpgrade9", baseCost: 25, costScaling: 2, levels: 4, unlock: 22, reqs: 1, recList: [5], effect: "+1x XP per level"},
     {name: "tokenUpgrade10", baseCost: 50, costScaling: 4, levels: 2, unlock: 23, reqs: 2, recList: [6, 7], effect: "+0.75x XPBoost, +0.1x Luck per level"},
 ]
+
+const dailyUpgrades = [
+    {name: "Test", baseCost: 1, costScaling: 1, unlock: 3, effect: "filler"},
+    {name: "Claim daily rewards", baseCost: 1, costScaling: 1, unlock: 3, effect: "filler 2"},
+    {name: "Timeskip", baseCost: 20, costScaling: 5, unlock: 3, effect: "Skips a certain amount of time to the future. Cost resets when claiming daily rewards"},
+    {name: "Instant XP", baseCost: 25, costScaling: 5, unlock: 4, effect: "Grants XP based on 1st button amount and increases XP gain"},
+    {name: "Liquid Luck", baseCost: 30, costScaling: 10, unlock: 6, effect: "One time x1.5 crate luck and +5% luck"},
+    {name: "Instant XPBoost", baseCost: 50, costScaling: 10, unlock: 14, effect: "Grants XPBoost based on 1st button amount and increases XPBoost gain"},
+    {name: "Token generator", baseCost: 50, costScaling: 10, unlock: 20, effect: "Adds many ticks into tokens and increases token gain"},
+]
