@@ -1,6 +1,9 @@
 Check Back Reclocked Changelog (dd/mm/yy for americans)
 ------------------------------
 
+Version 3: I fucked up everything patch (29/03/26)
+-Quite obvious what happened here
+
 Version 2: Day 1 patch (29/03/26)
 -Added daily rewards + 5 daily upgrades. Enjoy a mix of 1-time and permanent bonuses on purchase
 -Added a new "Volcano" theme. Honestly, top 3 best themes
