@@ -9,7 +9,8 @@ function reset() {
             cooldown: 1, //Normal
             buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //List of normals
             levelCap: [1, 5], //Big
-            lostXP: [0, 0] //Big
+            lostXP: [0, 0], //Big
+            pseudoLevel: [1, 0] //Big
         },
         pets: {
             amount: [0, 0, 0], //List of normals with many entries
@@ -291,13 +292,14 @@ function updateSmall() { //This part checks if buttons are available or not, add
         game.xp.amount = levelToXP(game.xp.levelCap)
     } //If the xp you have is higher than whatever xp is needed for cap, then your xp gets set to the corresponding xp to the cap
     game.xp.level = XPToLevel([Math.max(game.xp.amount[0], 0), game.xp.amount[1]])
+    game.xp.pseudoLevel = XPToLevel(addBig(game.xp.amount, game.xp.lostXP))
     if (compareBig(game.xp.level, game.player.highestLevel)) { game.player.highestLevel = game.xp.level } //If your current level is set to something higher than your recorded highest level, your highest level gets set to that level
     if (game.player.unlocks < unlockLevelsSmall.length) { document.getElementById("nextUnlockLevel").innerHTML = "You will unlock something new at level " + wholeNumberShort(unlockLevelsSmall[game.player.unlocks]) } //If player unlocks are still "inside" the small level unlocks, it displays that
     else { document.getElementById("nextUnlockLevel").innerHTML = "All unlocks achieved. Check back later for more content" }
     //else { document.getElementById("nextUnlockLevel").innerHTML = "You will unlock something new at level " + displayBig([1, unlockLevelsBig[game.player.unlocks - unlockLevelsSmall.length]]) } //Else if the player has gotten past that, it displays the level for the big level unlocks
     if (game.player.currentTab[0] <= 2) {
         document.getElementById("level").innerHTML = "Level " + displayRoundBig(game.xp.level)
-        if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { document.getElementById("level").innerHTML += " (Capped, pseudo: " + displayRoundBig(XPToLevel(addBig(game.xp.amount, game.xp.lostXP))) + " )" }
+        if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { document.getElementById("level").innerHTML += " (Capped, pseudo: " + displayRoundBig(game.xp.pseudoLevel) + " )" }
         //This bit is weird and gross
         //Sets the colour of the level bar, the texture of the level bar (if you're a high enough level), and your rank name
         i = 0
@@ -328,9 +330,9 @@ function updateSmall() { //This part checks if buttons are available or not, add
             document.getElementById("XPBarBack").style.width = (convertToNormal(ProgressToNextUnlock) / convertToNormal(XPToNextUnlock) * 100) + "%"
         } //xp to next unlock
         else { //xp to next x10
-            levelExpo = game.xp.level[1]
+            levelExpo = game.xp.pseudoLevel[1]
             XPToNextOoM = substractBig(levelToXP([1, levelExpo + 1]), levelToXP([1, levelExpo]))
-            if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { ProgressToNextOoM = substractBig(addBig(game.xp.amount, game.xp.lostXP), levelToXP([1, levelExpo])) }
+            if (JSON.stringify(game.xp.level) == JSON.stringify(game.xp.levelCap)) { ProgressToNextOoM = substractBig(levelToXP(game.xp.pseudoLevel), levelToXP([1, levelExpo])) }
             else { ProgressToNextOoM = substractBig(game.xp.amount, levelToXP([1, levelExpo])) }
 
             document.getElementById("XPBarText").innerHTML = "XP to next x10 levels: " + displayBig(ProgressToNextOoM) + "/" + displayBig(XPToNextOoM)
@@ -479,6 +481,7 @@ function changeTheme(x) {
     else if (x == 7) { document.getElementById("themeLink").href = "themes/themeAlternate.css" }
     else if (x == 8) { document.getElementById("themeLink").href = "themes/themeInverted.css" }
     else if (x == 9) { document.getElementById("themeLink").href = "themes/themeVolcano.css" }
+    else if (x == 10) { document.getElementById("themeLink").href = "themes/themeMidnight.css" }
 }
 
 // Meta function guaranteed to run after the DOM is ready

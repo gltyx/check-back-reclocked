@@ -1,6 +1,10 @@
 Check Back Reclocked Changelog (dd/mm/yy for americans)
 ------------------------------
 
+Version 3.2: New theme (30/03/26)
+-Added a new theme, thanks to Hestia
+-Fixed xp bar after level 100k
+
 Version 3.1: Doubleclick fix (29/03/26)
 -Fixed doubleclick bug
 
