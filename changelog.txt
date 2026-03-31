@@ -1,0 +1,25 @@
+Check Back Reclocked Changelog (dd/mm/yy for americans)
+------------------------------
+
+Version 3.2: New theme (30/03/26)
+-Added a new theme, thanks to Hestia
+-Fixed xp bar after level 100k
+
+Version 3.1: Doubleclick fix (29/03/26)
+-Fixed doubleclick bug
+
+Version 3: I fucked up everything patch (29/03/26)
+-Quite obvious what happened here
+
+Version 2: Day 1 patch (29/03/26)
+-Added daily rewards + 5 daily upgrades. Enjoy a mix of 1-time and permanent bonuses on purchase
+-Added a new "Volcano" theme. Honestly, top 3 best themes
+-Fixed typos (No, there is no "bonus based on pets discovered" for now, sorry)
+
+Version 1: Alpha release (28/03/26)
+-Entirety of the code has been remade, and there's now a custom number library that allows numbers to go up to 1e1.8e308 (Not all of them use this library)
+-Pacing of the game should be much better compared to the original check back
+-Features like pets have had slight tweaks (including new pets and a completely new pet order), where others like the shop are completely new (no more absurd pet requirements... for now)
+-Tab system has been improved, but there is still a chance a full on remake can be made in the future to match "other views"
+-Current endgame: Level 100k
+-Removed herobrine
