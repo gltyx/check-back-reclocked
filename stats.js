@@ -102,7 +102,7 @@ function petStats() {
     if (game.pets.luck > 1) {
         result += "<br>Luck factors:<br>"
         if (game.tokenBonuses.luck > 1) {result += "x" + numberShort(game.tokenBonuses.luck) + " from token upgrades<br>"}
-        if (game.daily.upgrades[2] > 1) {result += "x" + numberShort(1 + 0.05 * game.daily.upgrades[2]) + " from daily upgrades<br>"}
+        if (game.daily.upgrades[4] > 1) {result += "x" + numberShort(1 + 0.05 * game.daily.upgrades[4]) + " from daily upgrades<br>"}
         if (game.dailyBonuses.luckCharges >= 1) {result += "x1.5 from luck charges<br>"}
         result += "TOTAL: x" + numberShort(game.pets.luck) + "<br>"
     }

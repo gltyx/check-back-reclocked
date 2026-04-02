@@ -112,7 +112,7 @@ function calculateTokenUpgradeBoosts() {
     baseTokens *= (1 + 0.25 * game.tokens.upgrades[4])
     game.tokenBonuses.tokens = baseTokens
     let baseLuck = 1
-    baseLuck *= (1 + 0.1 * game.tokens.upgrades[4])
+    baseLuck *= (1 + 0.1 * game.tokens.upgrades[7])
     baseLuck *= (1 + 0.1 * game.tokens.upgrades[10])
     game.tokenBonuses.luck = baseLuck
 }

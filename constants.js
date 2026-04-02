@@ -53,7 +53,7 @@ const pets = [
     { name: "Snake", xpMulti: 1.6, specialText: "A snake living in barren wastes, looking for any juicy rat to eat." }, // 3
     { name: "Small Elf", xpMulti: 2, specialText: "This breed of elves is so small that they cannot harvest anything bigger than a mushroom. They love to dine on snakes." }, // 4
     { name: "Green Butterfly", xpMulti: 1.5, specialText: "Green butterflies are known to be annoying when crossing forests." }, // 5
-    { name: "Green Lizard", xpMulti: 1.75, specialText: "Rapid bug that cammouflages through green environments." }, // 6
+    { name: "Green Lizard", xpMulti: 1.75, specialText: "Rapid reptile that cammouflages through green environments." }, // 6
     { name: "Green Salamander", xpMulti: 2.25, specialText: "Their only danger comes from accidentally touching them." }, // 7
     { name: "Green Spider", xpMulti: 2.75, specialText: "They live on leaves because they can't make cobwebs." }, // 8
     { name: "Green Crocodile", xpMulti: 3.5, specialText: "It has a little button that makes it say 'See ya later, alligator'." }, // 9
