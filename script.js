@@ -6,6 +6,7 @@ function reset() {
             amount: [0, 0], //Big
             level: [1, 0], //Big
             multiplier: [1, 0], //Big
+            expo: [1, 0], //Big
             cooldown: 1, //Normal
             buttonCooldowns: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //List of normals
             levelCap: [1, 5], //Big
@@ -22,10 +23,12 @@ function reset() {
             equipped: 0, //Normal
             unboxString: [[0, 0]], //List of lists of normals
             luck: 1, //Normal
+            rollRNG: 1, //Normal
         },
         xpBoost: {
             amount: [1, 0], //Big
             multiplier: [1, 0], //Big
+            expo: [1, 0], //Big
             cooldown: 1, //Normal
             buttonCooldowns: [0, 0, 0, 0, 0], //List of normals
             effectExpo: [1, 0], //Big, could work as normal
@@ -51,6 +54,7 @@ function reset() {
             highestLevel: [1, 0], //Big
             ranks: 0, //Normal
             unlocks: 0, //Normal
+            highestUnlocks: 0, //Normal
             currentTheme: 3, //Normal
             timeOfLastUpdate: Date.now(), //Normal
             sessionStart: Date.now(), //Normal
@@ -62,7 +66,7 @@ function reset() {
             cratesOpened: 0, //Normal
             online: false, //If this is false, whenever it updates cooldowns it won't count for playtime
             crateEmoji: true, //Bool
-            versionNumber: 3, //Normal
+            versionNumber: 4, //Normal
         },
         daily: { //This is entirely remade
             days: 1, //Normal
@@ -78,6 +82,13 @@ function reset() {
             crateLuck: 1, //Normal
             ticks: 60, //Normal
             tokenBonus: 1,
+        },
+        prestige: {
+            reset: false, //Bool
+            xpNerf: [4, -1], //Big
+            luckNerf: 0.3, //Normal
+            xpBoostNerf: [7, -1], //Big
+            tokenNerf: 0.3 //Normal
         },
         mining: { //This is a test
             gridSize: 10,
@@ -174,7 +185,7 @@ function updateStuffOnLoad() {
     for (i = 0; i < tokenUpgrades.length; i++) {
         if (!game.tokens.upgrades[i]) { game.tokens.upgrades[i] = 0 }
     }
-    if (!game.daily.upgrades) {game.daily.upgrades = [0, 0, 0]}
+    if (!game.daily.upgrades) { game.daily.upgrades = [0, 0, 0] }
     for (i = 0; i < dailyUpgrades.length; i++) {
         if (!game.daily.upgrades[i]) { game.daily.upgrades[i] = 0 }
     }
@@ -188,6 +199,14 @@ function updateStuffOnLoad() {
     if (game.player.versionNumber == 2) {
         game.player.versionNumber = 3
         game.daily.cooldown = 0
+    }
+    if (game.player.versionNumber == 3) {
+        game.player.versionNumber = 4
+        game.prestige.reset = false
+        game.prestige.xpNerf = [4, -1]
+        game.prestige.luckNerf = 0.3
+        game.prestige.xpBoostNerf = [5, -1]
+        game.prestige.tokenNerf = 0.3
     }
     changeTheme(game.player.currentTheme)
 }
@@ -286,7 +305,12 @@ function updateSmall() { //This part checks if buttons are available or not, add
     else {
         document.getElementById("dailyButton").classList.remove("flickering")
     }
-    game.xp.levelCap = [1, 5] //If you edit this you're a real cheater
+    if (game.prestige.reset == true) {
+        game.xp.levelCap = [1, 100]
+    }
+    else {
+        game.xp.levelCap = [1, 5]
+    }//If you edit this you're a real cheater
     if (compareBigEqual(game.xp.amount, levelToXP(game.xp.levelCap))) {
         game.xp.lostXP = addBig(game.xp.lostXP, substractBig(game.xp.amount, levelToXP(game.xp.levelCap)))
         game.xp.amount = levelToXP(game.xp.levelCap)
@@ -442,6 +466,9 @@ function xpUnlocks() { //Pending to remake this to the whole big number system, 
         for (let i = 0; i < unlockLevelsSmall.length; i++) {
             if (convertToNormal(game.xp.level) >= unlockLevelsSmall[i] && game.player.unlocks < i + 1) { game.player.unlocks = i + 1 }
         }
+    }
+    if (game.player.unlocks > game.player.highestUnlocks || !game.player.highestUnlocks) {
+        game.player.highestUnlocks = game.player.unlocks
     }
     /*else { //Enable this after update ig
         for (let i = 0; i < unlockLevelsBig.length; i++) {

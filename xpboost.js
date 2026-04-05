@@ -16,6 +16,7 @@ function xpBButton(x) {
 
 function calculateXPBGain(x) { //You insert this command with the desired xp amount and it returns the gain after multipliers
     let result = multiplyBig(XPBoostButtons[x].xpBGain, game.xpBoost.multiplier)
+    //result = exponentBig(result, game.xpBoost.expo)
     return result
 }
 
@@ -26,14 +27,20 @@ function calculateXPBStats() {
     baseMulti = multiplyBig(baseMulti, game.dailyBonuses.xpBoost)
     game.xpBoost.multiplier = baseMulti
     game.xpBoost.cooldown = 1 //Calculates the cooldown divider, nothing about it for now
-    game.xpBoost.effectExpo = [1, 0] //Sets the exponent
+    let baseEffectExpo = [1, 0]
+    if (game.prestige.reset == true) {baseEffectExpo = multiplyBig(baseEffectExpo, game.prestige.xpBoostNerf)}
+    game.xpBoost.effectExpo = baseEffectExpo //Sets the exponent
     game.xpBoost.effectiveBoost = exponentBig(game.xpBoost.amount, game.xpBoost.effectExpo) //Amount^Expo
+    let baseExpo = [1, 0]
+    game.xpBoost.expo = baseExpo
 }
 setInterval(calculateXPBStats, 50)
 
 function XPBoostEffects() {
     let result = ("XPBoost: " + displayBig(game.xpBoost.amount))
-    if (compareBig(game.xpBoost.effectExpo, [1, 0])) { result += "<br>Exponent: ^" + displayBig(game.xpBoost.effectExpo) }
-    result += "<br>XP Multi: " + displayBig(game.xpBoost.effectiveBoost)
+    if (game.prestige.reset == true) { result += "<br>Effect Expo: ^" + displayBig(game.xpBoost.effectExpo) }
+    result += "<br>XP Multi: " + displayBig(game.xpBoost.effectiveBoost) + "<br>"
+    if (compareBig(game.xpBoost.multiplier, [1, 0])) { result += "<br>Multiplier: " + displayBig(game.xpBoost.multiplier) }
+    if (compareBig(game.xpBoost.expo, [1, 0])) { result += "<br>Exponent: " + displayBig(game.xpBoost.expo) }
     return result
 }

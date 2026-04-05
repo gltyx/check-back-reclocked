@@ -102,6 +102,7 @@ function unboxAmount(x, y) {
 function unboxPet(x, y) { //Planned to be for only 1 pet unbox
     if (game.pets.buttonCooldowns[x] == 0) {
         let petsList = 0
+        let rng = 1
         game.pets.buttonCooldowns[x] = petButtons[x].cooldown / game.pets.cooldown
         if (x == 0) { petsList = basicUnboxChances }
         if (x == 1) { petsList = natureUnboxChances }
@@ -113,7 +114,10 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
             let minimum = Math.floor(odds)
             let amount = minimum
             let roll = Math.random()
-            if (roll <= odds % 1) { amount++ }
+            if (roll <= odds % 1) { 
+                amount++ 
+                rng *= (1 / (odds % 1))
+            }
             if (amount >= 1) {
                 let petChosen = petsList[i][0]
                 if (!game.pets.amount[petChosen]) { game.pets.amount[petChosen] = amount }
@@ -123,6 +127,7 @@ function unboxPet(x, y) { //Planned to be for only 1 pet unbox
             }
         }
         game.player.cratesOpened += y
+        game.pets.rollRNG = rng
         if (game.dailyBonuses.luckCharges >= 1) { game.dailyBonuses.luckCharges -= 1 }
         openCloseUnboxTab()
     }
@@ -225,10 +230,16 @@ function calculatePetMultis() {
     let baseLuck = 1
     baseLuck *= game.tokenBonuses.luck
     baseLuck *= game.dailyBonuses.crateLuck
+    if (game.prestige.reset == true) {baseLuck *= game.prestige.luckNerf}
     game.pets.luck = baseLuck
 }
 setInterval(calculatePetMultis, 50)
 
 function changeEmojis() {
     game.player.crateEmoji = !game.player.crateEmoji
+}
+
+function calculatePetRNG() {
+    result = "Last roll rng: 1/" + numberShort(game.pets.rollRNG)
+    return result
 }

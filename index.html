@@ -38,6 +38,9 @@
                 <button class="tabButton" id="CratesTab" style="display: none" onclick="subtab([2, 2])"> · Pet Crates</button>
                 <button class="tabButton" id="XPBTab" style="display: none" onclick="subtab([2, 3])"> · XPBoost Buttons</button>
                 <button class="tabButton" id="TokenTab" style="display: none" onclick="subtab([2, 4])"> · Token Buttons</button>
+
+            <button class="button" id="PrestigeTab" style="display: none" onclick="tab(3)">PRESTIGE</button>
+                <button class="tabButton" id="ResearchTab" style="display: none" onclick="subtab([3, 1])"> · Research Buttons</button>
         </div>
 
         <div id="buttonsContainer">
@@ -78,6 +81,8 @@
             <button class="button" id="tokenUpgrade8" style="display: none" onclick="buyTokenUpgrade(8)">Upgrade 8</button>
             <button class="button" id="tokenUpgrade9" style="display: none" onclick="buyTokenUpgrade(9)">Upgrade 9</button>
             <button class="button" id="tokenUpgrade10" style="display: none" onclick="buyTokenUpgrade(10)">Upgrade 10</button>
+
+            <button class="button" id="prestigeButton" style="display: none" onclick="prestigeReset()">Resets all your progress and applies harsh nerfs, but unlocks a new feature. Required to progress</button>
         </div>
 
         <div id="infosContainer">
@@ -172,6 +177,7 @@
     <script src="xpboost.js"></script>
     <script src="tokens.js"></script>
     <script src="pets.js"></script>
+    <script src="prestige.js"></script>
     <script src="daily.js"></script>
     <script src="script.js"></script>
     <script src="stats.js"></script>

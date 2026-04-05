@@ -23,6 +23,7 @@ function xpButton(x) {
 
 function calculateXPGain(x) { //You insert this command with the desired xp amount and it returns the gain after multipliers
     let result = multiplyBig(XPButtons[x].xpGain, game.xp.multiplier)
+    //result = exponentBig(result, game.xp.expo)
     return result
 }
 
@@ -34,9 +35,12 @@ function calculateXPStats() {
     baseMulti = multiplyBig(baseMulti, game.dailyBonuses.xp)
     game.xp.multiplier = baseMulti
     let baseCooldown = 1 //xp cooldown divider
-    if (!!pets[game.pets.equipped].xpCooldown) baseCooldown = baseCooldown * pets[game.pets.equipped].xpCooldown
+    if (!!pets[game.pets.equipped].xpCooldown) { baseCooldown = baseCooldown * pets[game.pets.equipped].xpCooldown }
     baseCooldown = baseCooldown * (game.tokenBonuses.xpCooldown) //No need to do them 1 by 1 but I prefer doing it like this
     game.xp.cooldown = baseCooldown //Calculates your xp cooldown divider
+    let baseExpo = [1, 0]
+    if (game.prestige.reset == true) { baseExpo = multiplyBig(baseExpo, game.prestige.xpNerf) }
+    game.xp.expo = baseExpo
 }
 setInterval(calculateXPStats, 50)
 

@@ -96,10 +96,23 @@ function divideBig(a, b) { //a is an array [mantissa, exponent] and b is another
 
 function exponentBig(a, b) { //x^y where x = [a0, a1] and y = [b0, b1], and [a, b] = a * 10^b
     if (a.length == 2 && b.length == 2) {
-        let expo = (b[0] * 10 ** b[1]) * (Math.log10(a[0]) + a[1]) //x^y = 10^(y * logx) and log(x) = log(a) + b
-        let finalExponent = Math.floor(expo)
-        let finalMantissa = 10 ** (expo % 1) //If the expo is 32.5, the number would be 10^32 * 10^0.5, or about 3.1e32
-        let finalNumber = [finalMantissa, finalExponent]
+        let expo = 0
+        let finalExponent = 0
+        let finalMantissa = 0
+        let finalNumber = 0
+        if (compareBig(a, [1, 0])) {
+            expo = (b[0] * 10 ** b[1]) * (Math.log10(a[0]) + a[1]) //x^y = 10^(y * logx) and log(x) = log(a) + b
+            finalExponent = Math.floor(expo)
+            finalMantissa = 10 ** (expo % 1) //If the expo is 32.5, the number would be 10^32 * 10^0.5, or about 3.1e32
+            finalNumber = adjustMantissa([finalMantissa, finalExponent])
+        }
+        else if (compareBig([1, 0], a)) {
+            finalNumber = exponentBig(divideBig([1, 0], a), b)
+            finalNumber = divideBig([1, 0], finalNumber)
+        }
+        else {
+            finalNumber = [1, 0]
+        }
         return finalNumber
     }
     else {
@@ -117,7 +130,7 @@ function displayBig(a) { //Basically will format an array a that represents a nu
     if (a.length == 2) {
         let expoExpo = Math.floor(Math.log10(a[1]))
         let expoMantissa = a[1] / (10 ** expoExpo)
-        if (a[1] <= -3) { return ("1/" + displayBig(divideBig([1, 0], a)))}
+        if (a[1] <= -3) { return ("1/" + displayBig(divideBig([1, 0], a))) }
         else if (a[1] < 12) { return numberShort(a[0] * 10 ** a[1]) }
         else if (a[1] < 10000) { return (a[0].toFixed(2) + "e" + wholeNumberShort(a[1])) }
         else if (a[1] < 10 ** 12) { return (Math.floor(a[0]) + "e" + wholeNumberShort(a[1])) }
@@ -212,5 +225,5 @@ function convertToNormal(a) { //Converts an array that represents a big number t
 }
 
 function floor(a) { //Would make a number a = 12.3 as [1.23, 1] to their rounding [1.2, 1], if it makes sense
-    
+
 }
