@@ -1,5 +1,14 @@
 Check Back Reclocked Changelog (dd/mm/yy for americans)
+Version number is for ingame checks (it only checks for the x in x.2) to avoid NaN's on update
 ------------------------------
+
+Version 4.1: Daily sync (07/04/26)
+-Daily rewards cooldown now gets set to be ready at midnight UTC (GMT +0) globally. Has no real effect in progression balance
+
+Version 4: Silly fixes (05/04/26)
+-Last 2 token upgrades unlock 1 unlock later (30k/50k, instead of 15k/30k). Oopsies
+-Some displays/numbers have been properly fixed (silly goober me)
+-There's some background changes that should not be noticeable unless you cheat. If you cheat, you risk your save breaking (next update spoilers if you check the code)
 
 Version 3.2: New theme (30/03/26)
 -Added a new theme, thanks to Hestia

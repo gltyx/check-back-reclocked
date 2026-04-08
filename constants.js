@@ -53,7 +53,7 @@ const pets = [
     { name: "Snake", xpMulti: 1.6, specialText: "A snake living in barren wastes, looking for any juicy rat to eat." }, // 3
     { name: "Small Elf", xpMulti: 2, specialText: "This breed of elves is so small that they cannot harvest anything bigger than a mushroom. They love to dine on snakes." }, // 4
     { name: "Green Butterfly", xpMulti: 1.5, specialText: "Green butterflies are known to be annoying when crossing forests." }, // 5
-    { name: "Green Lizard", xpMulti: 1.75, specialText: "Rapid bug that cammouflages through green environments." }, // 6
+    { name: "Green Lizard", xpMulti: 1.75, specialText: "Rapid reptile that cammouflages through green environments." }, // 6
     { name: "Green Salamander", xpMulti: 2.25, specialText: "Their only danger comes from accidentally touching them." }, // 7
     { name: "Green Spider", xpMulti: 2.75, specialText: "They live on leaves because they can't make cobwebs." }, // 8
     { name: "Green Crocodile", xpMulti: 3.5, specialText: "It has a little button that makes it say 'See ya later, alligator'." }, // 9
@@ -125,16 +125,16 @@ const tokenUpgrades = [ //Name, base upgrade cost, cost scaling, total levels, e
     {name: "tokenUpgrade6", baseCost: 5, costScaling: 2, levels: 5, unlock: 20, reqs: 1, recList: [3], effect: "+0.25x XPBoost per level"},
     {name: "tokenUpgrade7", baseCost: 10, costScaling: 5, levels: 2, unlock: 21, reqs: 0, recList: [0], effect: "+0.1x Crate luck per level"},
     {name: "tokenUpgrade8", baseCost: 50, costScaling: 1, levels: 1, unlock: 22, reqs: 1, recList: [4], effect: "If (Bank >= 5), x(1 + ln(ticks)) Tokens"},
-    {name: "tokenUpgrade9", baseCost: 25, costScaling: 2, levels: 4, unlock: 22, reqs: 1, recList: [5], effect: "+1x XP per level"},
-    {name: "tokenUpgrade10", baseCost: 50, costScaling: 4, levels: 2, unlock: 23, reqs: 2, recList: [6, 7], effect: "+0.75x XPBoost, +0.1x Luck per level"},
+    {name: "tokenUpgrade9", baseCost: 25, costScaling: 2, levels: 4, unlock: 23, reqs: 1, recList: [5], effect: "+1x XP per level"},
+    {name: "tokenUpgrade10", baseCost: 50, costScaling: 4, levels: 2, unlock: 24, reqs: 2, recList: [6, 7], effect: "+0.75x XPBoost, +0.1x Luck per level"},
 ]
 
 const dailyUpgrades = [
-    {name: "Test", baseCost: 1, costScaling: 1, unlock: 3, effect: "filler"},
-    {name: "Claim daily rewards", baseCost: 1, costScaling: 1, unlock: 3, effect: "filler 2"},
+    {name: "Test", baseCost: 1, costScaling: 1, unlock: 0, effect: "filler"},
+    {name: "Claim daily rewards", baseCost: 1, costScaling: 1, unlock: 0, effect: "filler 2"},
     {name: "Timeskip", baseCost: 20, costScaling: 5, unlock: 3, effect: "Skips a certain amount of time to the future. Cost resets when claiming daily rewards"},
     {name: "Instant XP", baseCost: 25, costScaling: 5, unlock: 4, effect: "Grants XP based on 1st button amount and increases XP gain"},
-    {name: "Liquid Luck", baseCost: 30, costScaling: 10, unlock: 6, effect: "One time x1.5 crate luck and +5% luck"},
+    {name: "Liquid Luck", baseCost: 30, costScaling: 10, unlock: 6, effect: "+5% crate luck and +1 Luck charge (One use x1.5 luck)"},
     {name: "Instant XPBoost", baseCost: 50, costScaling: 10, unlock: 14, effect: "Grants XPBoost based on 1st button amount and increases XPBoost gain"},
     {name: "Token generator", baseCost: 50, costScaling: 10, unlock: 20, effect: "Adds many ticks into tokens and increases token gain"},
 ]
